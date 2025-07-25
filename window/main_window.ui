@@ -1,0 +1,1053 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1238</width>
+    <height>754</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>RUBY Assembly Program</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="label_10">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>20</y>
+      <width>951</width>
+      <height>211</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>36</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Please enter the unit information</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="description_cobo">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>340</y>
+      <width>511</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>26</pointsize>
+     </font>
+    </property>
+    <item>
+     <property name="text">
+      <string/>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-100-1-D-14.5</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-100-4-D-14.5</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-200-1-D-14.5</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-200-4-D-14.5</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-100-1-D-30</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-100-4-D-30</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-200-1-D-30</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-200-4-D-30</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-100-1-D-60</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-100-4-D-60</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-200-1-D-60</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-200-4-D-60</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-100-1-D-90</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-100-4-D-90</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-200-1-D-90</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-200-4-D-90</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-100-1-S-14.5</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-100-4-S-14.5</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-200-1-S-14.5</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-200-4-S-14.5</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-100-1-S-30</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-100-4-S-30</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-200-1-S-30</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-200-4-S-30</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-100-1-S-60</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-100-4-S-60</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-200-1-S-60</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-200-4-S-60</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-100-1-S-90</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-100-4-S-90</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-200-1-S-90</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-200-4-S-90</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-100-1-L-14.5</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-100-4-L-14.5</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-200-1-L-14.5</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-200-4-L-14.5</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-100-1-L-30</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-100-4-L-30</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-200-1-L-30</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-200-4-L-30</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-100-1-L-60</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-100-4-L-60</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-200-1-L-60</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-200-4-L-60</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-100-1-L-90</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-100-4-L-90</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-200-1-L-90</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHI-200-4-L-90</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-100-1-D-0.5</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-100-4-D-0.5</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-200-1-D-0.5</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-200-4-D-0.5</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-300-1-D-0.5</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-300-4-D-0.5</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-100-1-D-1.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-100-4-D-1.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-200-1-D-1.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-200-4-D-1.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-300-1-D-1.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-300-4-D-1.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-100-1-D-2.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-100-4-D-2.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-200-1-D-2.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-200-4-D-2.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-300-1-D-2.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-300-4-D-2.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-100-1-D-4.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-100-4-D-4.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-200-1-D-4.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-200-4-D-4.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-300-1-D-4.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-300-4-D-4.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-100-1-D-10.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-100-4-D-10.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-200-1-D-10.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-200-4-D-10.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-300-1-D-10.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-300-4-D-10.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-100-1-S-0.5</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-100-4-S-0.5</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-200-1-S-0.5</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-200-4-S-0.5</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-300-1-S-0.5</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-300-4-S-0.5</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-100-1-S-1.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-100-4-S-1.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-200-1-S-1.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-200-4-S-1.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-300-1-S-1.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-300-4-S-1.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-100-1-S-2.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-100-4-S-2.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-200-1-S-2.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-200-4-S-2.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-300-1-S-2.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-300-4-S-2.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-100-1-S-4.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-100-4-S-4.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-200-1-S-4.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-200-2-S-4.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-300-1-S-4.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-300-4-S-4.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-100-1-S-10.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-100-4-S-10.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-200-1-S-10.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-200-4-S-10.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-300-1-S-10.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-300-4-S-10.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-100-1-L-0.5</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-100-4-L-0.5</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-200-1-L-0.5</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-200-4-L-0.5</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-300-1-L-0.5</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-300-4-L-0.5</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-100-1-L-1.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-100-4-L-1.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-200-1-L-1.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-200-4-L-1.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-300-1-L-1.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-300-4-L-1.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-100-1-L-2.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-100-4-L-2.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-200-1-L-2.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-200-4-L-2.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-300-1-L-2.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-300-4-L-2.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-100-1-L-4.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-100-4-L-4.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-200-1-L-4.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-200-4-L-4.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-300-1-L-4.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-300-4-L-4.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-100-1-L-10.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-100-4-L-10.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-200-1-L-10.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-200-4-L-10.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-300-1-L-10.0</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>JMHA-300-4-L-10.0</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="label_11">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>330</y>
+      <width>331</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>26</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Unit Description:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_12">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>270</y>
+      <width>361</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>26</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Unit Part Number: </string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="first_assy_pb">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>460</y>
+      <width>421</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>26</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(200, 100, 200)</string>
+    </property>
+    <property name="text">
+     <string>Start first assembly</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="help_pb">
+    <property name="geometry">
+     <rect>
+      <x>970</x>
+      <y>460</y>
+      <width>171</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>26</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 127)</string>
+    </property>
+    <property name="text">
+     <string>Help</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="exit_pb">
+    <property name="geometry">
+     <rect>
+      <x>970</x>
+      <y>530</y>
+      <width>171</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>26</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(253, 79, 79)</string>
+    </property>
+    <property name="text">
+     <string>Exit</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="cover_assy_pb">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>530</y>
+      <width>421</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>26</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(0, 100, 200)</string>
+    </property>
+    <property name="text">
+     <string>Start cover assembly</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="calibration_pb">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>460</y>
+      <width>421</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>26</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(0, 200, 0)</string>
+    </property>
+    <property name="text">
+     <string>Start Calibration</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="final_assy_pb">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>530</y>
+      <width>421</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>26</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(200, 0, 100)</string>
+    </property>
+    <property name="text">
+     <string>Start final assembly</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="part_number_le">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>270</y>
+      <width>511</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="create_label_pb">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>600</y>
+      <width>421</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>26</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(200, 200, 0)</string>
+    </property>
+    <property name="text">
+     <string>Print Label</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="program_pb">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>600</y>
+      <width>421</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>26</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(100, 200, 200)</string>
+    </property>
+    <property name="text">
+     <string>Program Digital Ruby</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1238</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionSave"/>
+    <addaction name="actionFinish"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+    <addaction name="actionSearch"/>
+    <addaction name="actionLoad"/>
+   </widget>
+   <widget class="QMenu" name="menuAbout">
+    <property name="title">
+     <string>About</string>
+    </property>
+    <addaction name="actionAbout"/>
+    <addaction name="actionHelp"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
+   <addaction name="menuAbout"/>
+  </widget>
+  <action name="actionSave">
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </action>
+  <action name="actionFinish">
+   <property name="text">
+    <string>Finish</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionSearch">
+   <property name="text">
+    <string>Search</string>
+   </property>
+  </action>
+  <action name="actionLoad">
+   <property name="text">
+    <string>Load</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionHelp">
+   <property name="text">
+    <string>Help</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
