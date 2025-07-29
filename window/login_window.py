@@ -2,7 +2,6 @@ import sys
 import logging
 import os
 import keyring
-#import datetime
 import system.settings as settings
 import system.api_calls as api_calls
 from PyQt5 import QtWidgets, uic
@@ -11,7 +10,6 @@ def get_info_from_barcode(self) -> str:
     dialog = BarcodeEntryPopup(self)
     if dialog.exec_():
         response = dialog.barcode_value.text()
-        print(f"The user scanned the barcode containing: {response} as the user info")
         logging.info(f"The user scanned the barcode containing: {response} as the user info")
     return response
 
@@ -23,7 +21,6 @@ def store_login_info(ID, username, password):
             logging.info(f"updating the username for ID: {ID} in the username table")
     except Exception as e:
         settings.error_message(f"an unknown error: {e} has occured")
-
     try:
         saved_password_for_current_username = keyring.get_password(settings.username_table, ID)
         if saved_password_for_current_username != password:
@@ -41,7 +38,6 @@ class BarcodeEntryPopup(QtWidgets.QDialog):
         self.barcode_label.setText("Data Matrix Value")
         self.barcode_value = QtWidgets.QLineEdit(self)
         self.go = QtWidgets.QPushButton("Go", self)
-        self.barcode_value.textChanged.connect(self.handleLogin) #cam you messed it up here maybe
         self.go.clicked.connect(self.handleLogin)
         layout = QtWidgets.QVBoxLayout(self)
         layout.addWidget(self.barcode_label)
@@ -98,7 +94,6 @@ class Login_Window(QtWidgets.QMainWindow):
             if "@" not in user_name:
                 user_name += "@jewellinstruments.com"
         API_responce = api_calls.APIHandler(login_email=user_name, login_pass=str(self.password_le.text())).login()
-        print(f"API_responce: {API_responce}")
         if API_responce is False:
             settings.Login_fail_count += 1
             logging.info(f"{user_name} failed to log in")
@@ -125,7 +120,6 @@ class Login_Window(QtWidgets.QMainWindow):
                     settings.LOGGED_IN = True
             else:
                 settings.LOGGED_IN = True
-                
             if settings.LOGGED_IN is True:
                 store_login_info(self.ID_number_le.text(), self.user_le.text(), self.password_le.text())
                 self.close()
@@ -175,7 +169,6 @@ class Login_Window(QtWidgets.QMainWindow):
     
     def exit(self):
         """Exit the program
-
         Returns:
             KeyboardInterupt: this will colse the main window upon close of this window
         """
@@ -183,7 +176,6 @@ class Login_Window(QtWidgets.QMainWindow):
         logging.info("exited by user")
         return KeyboardInterrupt
     
-
     
 def start_login_window():
     app = QtWidgets.QApplication(sys.argv)

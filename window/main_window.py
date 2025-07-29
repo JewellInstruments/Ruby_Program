@@ -9,7 +9,6 @@ from PyQt5 import QtWidgets, uic
 
 def parse_info(self) -> list:
     """Takes the info entered by the user and determins the model number of the unit 
-
     Returns:
         list: the model number of the unit seperated by the dashes
     """
@@ -80,7 +79,6 @@ class Main_Window(QtWidgets.QMainWindow):
         if settings.work_order_part_no != '':
             self.part_number_le.setText(settings.work_order_part_no.strip())
             self.part_number_le.setEnabled(False)
-        #self.description_le = self.findChild(QtWidgets.QLineEdit, "description_le")
         ############################################################################
 
         # CHECK BOXES
@@ -139,7 +137,6 @@ class Main_Window(QtWidgets.QMainWindow):
     
     def cover_assy(self):
         """Opens the appropriate power point for assembling the cover for a unit of the specified model number
-
         Returns:
             self.exit(): closes the program after a power point is opened
         """
@@ -162,7 +159,6 @@ class Main_Window(QtWidgets.QMainWindow):
     
     def calibration(self):
         """Opens the appropriate excel sheet for calibrating a unit of the specified model number
-
         Returns:
             self.exit(): closes the program after a power point is opened
         """
@@ -232,7 +228,6 @@ class Main_Window(QtWidgets.QMainWindow):
     
     def final_assy(self):
         """Opens a power point that containins the instructions for assembling the ruby cover to base
-
         Returns:
             self.exit(): closes the program after a power point is opened
         """
@@ -246,7 +241,6 @@ class Main_Window(QtWidgets.QMainWindow):
     
     def program(self):
         """Opens a power point that containins the instructions for programing the digital ruby
-
         Returns:
             self.exit(): closes the program after a power point is opened
         """
@@ -265,7 +259,6 @@ class Main_Window(QtWidgets.QMainWindow):
     
     def exit(self):
         """Exit the program
-
         Returns:
             KeyboardInterrupt: exit the window and exit the program on close of this window
         """
