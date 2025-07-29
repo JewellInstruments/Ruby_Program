@@ -23,7 +23,7 @@ def store_login_info(ID, username, password):
         saved_username_for_current_id = saved_username_for_current_id.strip("@jewellinstruments.com")
     saved_password_for_current_username = keyring.get_password(settings.password_table, username)
     try:
-        if (saved_username_for_current_id != username) or (saved_password_for_current_username != password):
+        if (saved_username_for_current_id != username) or (saved_password_for_current_username != password) or (username is None) or (password is None):
             print(f"saved_username_for_current_id: {saved_username_for_current_id}")
             print(f"username: {username}")
             print(f"saved_password_for_current_username: {saved_password_for_current_username}")
