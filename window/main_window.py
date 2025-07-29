@@ -7,7 +7,7 @@ import system.api_calls as api_calls
 import system.settings as settings
 from PyQt5 import QtWidgets, uic
 
-def parse_info(self) -> list:
+def parse_info(self) -> tuple [list, str]:
     """Takes the info entered by the user and determins the model number of the unit 
     Returns:
         list: the model number of the unit seperated by the dashes
