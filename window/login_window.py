@@ -16,7 +16,9 @@ def get_info_from_barcode(self) -> str:
 def store_login_info(ID, username, password):
     username = username.strip("@jewellinstruments.com")
     saved_username_for_current_id = keyring.get_password(settings.username_table, ID)
-    saved_username_for_current_id = saved_username_for_current_id.strip("@jewellinstruments.com")
+    saved_username_for_current_id = saved_username_for_current_id
+    if saved_username_for_current_id is not None:
+        saved_username_for_current_id = saved_username_for_current_id.strip("@jewellinstruments.com")
     saved_password_for_current_username = keyring.get_password(settings.password_table, username)
     try:
         if (saved_username_for_current_id != username) or (saved_password_for_current_username != password):
