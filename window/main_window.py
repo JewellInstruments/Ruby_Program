@@ -141,6 +141,7 @@ class Main_Window(QtWidgets.QMainWindow):
             self.exit(): closes the program after a power point is opened
         """
         desc = parse_info(self) #JMHI-200-1-L-30
+        print(f"desc: {desc}")
         if desc == ['']:
             settings.error_message("You have not selected an option")
             return 
