@@ -41,7 +41,7 @@ class BarcodeEntryPopup(QtWidgets.QDialog):
         self.barcode_label.setText("Data Matrix Value")
         self.barcode_value = QtWidgets.QLineEdit(self)
         self.go = QtWidgets.QPushButton("Go", self)
-        self.barcode_value.textChanged.connect(self.handleLogin) #cam you messed it up here maybe
+        #self.barcode_value.textChanged.connect(self.handleLogin) #cam you messed it up here maybe
         self.go.clicked.connect(self.handleLogin)
         layout = QtWidgets.QVBoxLayout(self)
         layout.addWidget(self.barcode_label)
