@@ -193,7 +193,7 @@ class Main_Window(QtWidgets.QMainWindow):
         else:
             axis_no = 'xy'
         week_of_the_year = datetime.date.today().isocalendar().week
-        start_number = api_calls.get_RUBY_label_current_number(week_of_the_year, settings.qty)
+        start_number = api_calls.get_RUBY_label_current_number(week_of_the_year, settings.qty, settings.work_order_part_no, settings.work_order)
         printed_before = False
         for file in os.listdir(settings.LABEL_BASE):
             if file == f"{settings.work_order}.csv":
