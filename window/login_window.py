@@ -16,14 +16,14 @@ def get_info_from_barcode(self) -> str:
 def store_login_info(ID, username, password):
     try:
         saved_username_for_current_id = keyring.get_password(settings.username_table, ID)
-        if saved_username_for_current_id != username:
+        if saved_username_for_current_id is None:
             keyring.set_password(settings.username_table, ID, username)
             logging.info(f"updating the username for ID: {ID} in the username table")
     except Exception as e:
         settings.error_message(f"an unknown error: {e} has occured")
     try:
         saved_password_for_current_username = keyring.get_password(settings.username_table, ID)
-        if saved_password_for_current_username != password:
+        if saved_password_for_current_username is None:
             keyring.set_password(settings.password_table, username, password)
             logging.info(f"updating the password for username: {username} in the password table")
     except Exception as e:
