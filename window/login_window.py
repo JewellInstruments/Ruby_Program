@@ -14,27 +14,25 @@ def get_info_from_barcode(self) -> str:
     return response
 
 def store_login_info(ID, username, password):
-    print(f"username: {username}")
-    index = username.find('@')
-    if index != 0:
-        username = username[:index]
+
     saved_username_for_current_id = keyring.get_password(settings.username_table, ID)
     saved_username_for_current_id = saved_username_for_current_id
     if saved_username_for_current_id is not None:
         saved_username_for_current_id = saved_username_for_current_id.strip("@jewellinstruments.com")
     saved_password_for_current_username = keyring.get_password(settings.password_table, username)
     try:
-        if (saved_username_for_current_id != username) or (saved_password_for_current_username != password) or (username is None) or (password is None):
-            print(f"saved_username_for_current_id: {saved_username_for_current_id}")
-            print(f"username: {username}")
-            print(f"saved_password_for_current_username: {saved_password_for_current_username}")
-            print(f"password: {password}")
+        if (saved_username_for_current_id != username):
             keyring.delete_password(settings.username_table, ID)
+            saved_username_for_current_id = None
+        if (saved_password_for_current_username != password):
             keyring.delete_password(settings.password_table, username)
+            saved_password_for_current_username = None
+        if (saved_username_for_current_id is None):
             keyring.set_password(settings.username_table, ID, username)
+        if (saved_password_for_current_username is None):
             keyring.set_password(settings.password_table, username, password)
-            logging.info(f"updating the username for ID: {ID} has been saved")
-            logging.info(f"updating the password for username: {username} has been saved")
+            #logging.info(f"updating the username for ID: {ID} has been saved")
+            #logging.info(f"updating the password for username: {username} has been saved")
     except Exception as e:
         settings.error_message(f"an unknown error: {e} has occured")
     return
