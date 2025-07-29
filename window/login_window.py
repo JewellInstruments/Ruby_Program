@@ -20,6 +20,10 @@ def store_login_info(ID, username, password):
     saved_password_for_current_username = keyring.get_password(settings.password_table, username)
     try:
         if (saved_username_for_current_id != username) or (saved_password_for_current_username != password):
+            print(f"saved_username_for_current_id: {saved_username_for_current_id}")
+            print(f"username: {username}")
+            print(f"saved_password_for_current_username: {saved_password_for_current_username}")
+            print(f"password: {password}")
             keyring.delete_password(settings.username_table, ID)
             keyring.delete_password(settings.password_table, username)
             keyring.set_password(settings.username_table, ID, username)
