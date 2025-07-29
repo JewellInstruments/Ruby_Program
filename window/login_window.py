@@ -1,6 +1,7 @@
 import sys
 import logging
 import os
+import keyring
 #import datetime
 import system.settings as settings
 import system.api_calls as api_calls
@@ -14,26 +15,20 @@ def get_info_from_barcode(self) -> str:
         logging.info(f"The user scanned the barcode containing: {response} as the user info")
     return response
 
-def store_login_info_as_environ_variable(ID, username, password):
+def store_login_info(ID, username, password):
     try:
-        saved_username_for_current_id = settings.cams_temp_username_learning_tool[ID]
+        saved_username_for_current_id = keyring.get_password(settings.username_table, ID)
         if saved_username_for_current_id != username:
-            settings.cams_temp_username_learning_tool[ID] = username
+            keyring.set_password(settings.username_table, ID, username)
             logging.info(f"updating the username for ID: {ID} in the username table")
-    except KeyError:
-        settings.cams_temp_username_learning_tool[ID] = username
-        logging.info(f"adding the username for the new ID: {ID} in the username table")
     except Exception as e:
         settings.error_message(f"an unknown error: {e} has occured")
 
     try:
-        saved_password_for_current_username = settings.cams_temp_password_learning_tool[username]
+        saved_password_for_current_username = keyring.get_password(settings.username_table, ID)
         if saved_password_for_current_username != password:
-            settings.cams_temp_password_learning_tool[username] = password
+            keyring.set_password(settings.password_table, username, password)
             logging.info(f"updating the password for username: {username} in the password table")
-    except KeyError:
-        settings.cams_temp_password_learning_tool[username] = password
-        logging.info(f"adding the password for the new username: {username} in the password table")
     except Exception as e:
         settings.error_message(f"an unknown error: {e} has occured")
     logging.info(f"login info for user: {username} has been saved")
@@ -70,7 +65,7 @@ class Login_Window(QtWidgets.QMainWindow):
         self.login_pb.clicked.connect(self.login)
 
         self.user_barcode_pb = self.findChild(QtWidgets.QPushButton, "user_barcode_pb")
-        self.user_barcode_pb.clicked.connect(self.user_barcode_v2)
+        self.user_barcode_pb.clicked.connect(self.user_barcode)
 
         self.work_order_barcode_pb = self.findChild(QtWidgets.QPushButton, "work_order_barcode_pb")
         self.work_order_barcode_pb.clicked.connect(self.work_order_barcode)
@@ -131,39 +126,20 @@ class Login_Window(QtWidgets.QMainWindow):
                 settings.LOGGED_IN = True
                 
             if settings.LOGGED_IN is True:
-                store_login_info_as_environ_variable(self.ID_number_le.text(), self.user_le.text(), self.password_le.text())
+                store_login_info(self.ID_number_le.text(), self.user_le.text(), self.password_le.text())
                 self.close()
                 logging.info(f"{user_name} sucessfully logged in")
                 return 
             
-            
+        
     def user_barcode(self):
-        """Allows the user to scan a barcode for their login
-        """
-        dialog = BarcodeEntryPopup(self)
-        if dialog.exec_():
-            response = dialog.barcode_value.text()
-            if response == "":
-                return
-            else:
-                try: 
-                    response = response.replace(" ", "").split(",")
-                    logging.info(f"The user scanned the barcode containing: {response[0]} as the username")
-                    self.username_le.setText(response[0])
-                    self.password_le.setText(response[1])
-                except Exception as e:
-                    print(f"an unknown error: {e} has occured") 
-                    logging.info(f"an unknown error: {e} has occured")
-        return
-    
-    def user_barcode_v2(self):
         """Allows the user to scan their keycard to log in if they have logged in once before
         """
         response = get_info_from_barcode(self) #at this point response should be a string of a 5 digit number that is the employee id
         self.ID_number_le.setText(response)
         try: 
-            username = settings.cams_temp_username_learning_tool[response]
-            password = settings.cams_temp_password_learning_tool[username]
+            username = keyring.get_password(settings.username_table, response)
+            password = keyring.get_password(settings.password_table, username)
             self.username_le.setText(username)
             self.password_le.setText(password)
         except KeyError:

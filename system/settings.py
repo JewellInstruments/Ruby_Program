@@ -88,7 +88,6 @@ def help_message(help_message: str, name: str =''):
     dlg.exec()
     return
 
-
 ruby_conversion_chart = {
     "Part_number":"model_number",
     "02550431-1112" : "JMHAA-100-1-S-0.5",
@@ -267,12 +266,16 @@ ruby_conversion_chart = {
     "02550444-2439" : "JMHI-200-4-L-90-V"
 }
 
-cams_temp_username_learning_tool = {
-    "employee_id" : "username",
-    #"08095" : "cbrochu"
-}
+username_table = 'usernames'
 
-cams_temp_password_learning_tool = {
-    "username" : "password",
-    "cbrochu" : "JarjarB1nks97!"
-}
+password_table = 'passwords'
+
+#cams_temp_username_learning_tool = {
+#    "employee_id" : "username",
+#    "08095" : "cbrochu"
+#}
+
+#cams_temp_password_learning_tool = {
+#    "username" : "password",
+#    "cbrochu" : "JarjarB1nks97!"
+#}

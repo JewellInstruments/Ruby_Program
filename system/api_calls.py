@@ -875,7 +875,8 @@ def is_user_in_group(user_name: str, in_group: str) -> bool:
 def get_RUBY_label_current_number(week_of_the_year, number_of_units) -> int:
     api_handler = APIHandler()
 
-    table_data = api_handler.get("SerialNumber_serialnumbertrack/")
+    table_data = api_handler.get("serial_number/")#for some reason this is failing to update the acess token
+    print(f"table_1: {table_data}")
 
     table_data = table_data.data
     print(f"Table data: {table_data}") #returns none
