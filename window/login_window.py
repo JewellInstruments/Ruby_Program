@@ -21,12 +21,15 @@ def store_login_info(ID, username, password):
         saved_username_for_current_id = saved_username_for_current_id.strip("@jewellinstruments.com")
     saved_password_for_current_username = keyring.get_password(settings.password_table, username)
     try:
-        print("fail flag 0")
+        print("fail_flag 0")
         print(f"saved_username_for_current_id: {saved_username_for_current_id}")
         print(f"username: {username}")
         if (saved_username_for_current_id != username):
+            print("fail_flag 0.1")
             keyring.delete_password(settings.username_table, ID)
+            print("fail_flag 0.2")
             saved_username_for_current_id = None
+            print("fail_flag 0.3")
         print("fail flag 1")
 
         if (saved_password_for_current_username != password):
