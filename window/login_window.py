@@ -14,21 +14,20 @@ def get_info_from_barcode(self) -> str:
     return response
 
 def store_login_info(ID, username, password):
+    username = username.strip("@jewellinstruments.com")
+    saved_username_for_current_id = keyring.get_password(settings.username_table, ID)
+    saved_username_for_current_id = saved_username_for_current_id.strip("@jewellinstruments.com")
+    saved_password_for_current_username = keyring.get_password(settings.password_table, username)
     try:
-        saved_username_for_current_id = keyring.get_password(settings.username_table, ID)
-        if saved_username_for_current_id is None:
+        if (saved_username_for_current_id != username) or (saved_password_for_current_username != password):
+            keyring.delete_password(settings.username_table, ID)
+            keyring.delete_password(settings.password_table, username)
             keyring.set_password(settings.username_table, ID, username)
-            logging.info(f"updating the username for ID: {ID} in the username table")
-    except Exception as e:
-        settings.error_message(f"an unknown error: {e} has occured")
-    try:
-        saved_password_for_current_username = keyring.get_password(settings.username_table, ID)
-        if saved_password_for_current_username is None:
             keyring.set_password(settings.password_table, username, password)
-            logging.info(f"updating the password for username: {username} in the password table")
+            logging.info(f"updating the username for ID: {ID} has been saved")
+            logging.info(f"updating the password for username: {username} has been saved")
     except Exception as e:
         settings.error_message(f"an unknown error: {e} has occured")
-    logging.info(f"login info for user: {username} has been saved")
     return
 
 class BarcodeEntryPopup(QtWidgets.QDialog):
