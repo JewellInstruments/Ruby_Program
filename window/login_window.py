@@ -29,10 +29,10 @@ def store_login_info(ID, username, password):
             saved_password_for_current_username = None
         if (saved_username_for_current_id is None):
             keyring.set_password(settings.username_table, ID, username)
+            logging.info(f"updating the username for ID: {ID} has been saved")
         if (saved_password_for_current_username is None):
             keyring.set_password(settings.password_table, username, password)
-            #logging.info(f"updating the username for ID: {ID} has been saved")
-            #logging.info(f"updating the password for username: {username} has been saved")
+            logging.info(f"updating the password for username: {username} has been saved")
     except Exception as e:
         settings.error_message(f"an unknown error: {e} has occured")
     return
