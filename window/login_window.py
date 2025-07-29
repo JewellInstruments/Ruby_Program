@@ -14,7 +14,7 @@ def get_info_from_barcode(self) -> str:
     return response
 
 def store_login_info(ID, username, password):
-    index = username.find('@')
+    index = username.find('@') +1
     username = username[:index]
     saved_username_for_current_id = keyring.get_password(settings.username_table, ID)
     saved_username_for_current_id = saved_username_for_current_id
