@@ -24,7 +24,7 @@ def store_login_info(ID, username, password):
         print("fail_flag 0")
         print(f"saved_username_for_current_id: {saved_username_for_current_id}")
         print(f"username: {username}")
-        if (saved_username_for_current_id != username):
+        if (saved_username_for_current_id != username) and (saved_username_for_current_id is not None):
             print("fail_flag 0.1")
             keyring.delete_password(settings.username_table, ID)
             print("fail_flag 0.2")
@@ -32,7 +32,7 @@ def store_login_info(ID, username, password):
             print("fail_flag 0.3")
         print("fail flag 1")
 
-        if (saved_password_for_current_username != password):
+        if (saved_password_for_current_username != password) and (saved_password_for_current_username is not None):
             keyring.delete_password(settings.password_table, username)
             saved_password_for_current_username = None
         print("fail flag 2")
