@@ -20,10 +20,14 @@ def parse_info(self) -> tuple [list, str]:
         try: 
             model = settings.ruby_conversion_chart[part_no]
             desc = model.split("-") #JMHI-200-1-L-30
+            logging.info(f"Model info returning: {model}")
+            logging.info(f"Desc info returning: {desc}")
         except KeyError:
             settings.error_message(f"Part number: {part_no} not found!\n Attempting to try the entered discription")
             desc = description.split("-") #JMHI-200-1-L-30
             model = description
+            logging.info(f"Model info returning: {model}")
+            logging.info(f"Desc info returning: {desc}")
         except Exception as e:
             print(f"An unknown error: {e} has occured")
             logging.info(f"An unknown error: {e} has occured")
@@ -32,8 +36,7 @@ def parse_info(self) -> tuple [list, str]:
             model = description
     else:
         desc = ['']
-    logging.info(f"Model info returning: {model}")
-    logging.info(f"Desc info returning: {desc}")
+    
     return desc, model
 
 class Main_Window(QtWidgets.QMainWindow):
