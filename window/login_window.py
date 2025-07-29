@@ -21,18 +21,26 @@ def store_login_info(ID, username, password):
         saved_username_for_current_id = saved_username_for_current_id.strip("@jewellinstruments.com")
     saved_password_for_current_username = keyring.get_password(settings.password_table, username)
     try:
+        print("fail flag 0")
         if (saved_username_for_current_id != username):
             keyring.delete_password(settings.username_table, ID)
             saved_username_for_current_id = None
+        print("fail flag 1")
+
         if (saved_password_for_current_username != password):
             keyring.delete_password(settings.password_table, username)
             saved_password_for_current_username = None
+        print("fail flag 2")
+
         if (saved_username_for_current_id is None):
             keyring.set_password(settings.username_table, ID, username)
             logging.info(f"updating the username for ID: {ID} has been saved")
+        print("fail flag 3")
+
         if (saved_password_for_current_username is None):
             keyring.set_password(settings.password_table, username, password)
             logging.info(f"updating the password for username: {username} has been saved")
+        print("fail flag 4")
     except Exception as e:
         settings.error_message(f"an unknown error: {e} has occured")
     return
