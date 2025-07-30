@@ -878,6 +878,12 @@ def get_RUBY_label_current_number(week_of_the_year, number_of_units, part_number
     data2 = {"serial_number": "0", "part_number": "879838", "work_order": "I0PAI-0000"}
     data3 = ["0", "879838", "I0PAI-0000"]
     try:
+        table_data = api_handler.get("serial_number/")
+        print(f"data: {table_data}")
+        print(f"data data: {table_data.data}")
+    except Exception as e:
+        print(f"data did not work, error: {e}")
+    try:
         table_data1 = api_handler.post("serial_number/", data1)
         print(f"data1: {table_data1}")
         print(f"data1 data: {table_data1.data}")
@@ -895,22 +901,24 @@ def get_RUBY_label_current_number(week_of_the_year, number_of_units, part_number
         print(f"data3 data: {table_data3.data}")
     except Exception as e:
         print(f"data3 did not work, error: {e}")
-    #print(f"table_1: {table_data}")
+    try: 
+        table_data = table_data1.data
+        print(f"Table data: {table_data}") #returns none
+        current_week = table_data["current_week"] 
+        current_number = table_data["current_number"]
 
-    table_data = table_data1.data
-    print(f"Table data: {table_data}") #returns none
-    current_week = table_data["current_week"] 
-    current_number = table_data["current_number"]
-
-    if current_week != week_of_the_year:
-        table_data["current_week"] = current_week
-        table_data["current_number"] = number_of_units
-        api_handler.update("SerialNumber_serialnumbertrack", table_data) #set current_week to the week_of_the_year, set current_number to 0 
-        start_number = 1
-    else:
-        table_data["current_number"] = current_number + number_of_units
-        api_handler.update("SerialNumber_serialnumbertrack", table_data) #set current_week to the week_of_the_year, set current_number to 0 
-        start_number = current_number + 1
+        if current_week != week_of_the_year:
+            table_data["current_week"] = current_week
+            table_data["current_number"] = number_of_units
+            api_handler.update("SerialNumber_serialnumbertrack", table_data) #set current_week to the week_of_the_year, set current_number to 0 
+            start_number = 1
+        else:
+            table_data["current_number"] = current_number + number_of_units
+            api_handler.update("SerialNumber_serialnumbertrack", table_data) #set current_week to the week_of_the_year, set current_number to 0 
+            start_number = current_number + 1
+    except Exception as e:
+        print(f"bassicly the call to the api you tried earlier does not work, I am not sure why it is designed so differently from everything else, why cant I just do a get?? offical error: {e} ")
+        start_number = 0
     return start_number
 
 
