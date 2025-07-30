@@ -2,18 +2,12 @@ import socket
 #import os
 import logging
 import requests
-
-from dataclasses import dataclass
 import contextlib
 
-# from requests.compat import urljoin
+from dataclasses import dataclass
 
 import system.settings as settings
 
-# from network import get_specs
-
-
-# api_handler.login()
 
 @dataclass
 class Response:

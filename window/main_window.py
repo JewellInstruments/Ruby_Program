@@ -13,6 +13,9 @@ def parse_info(self) -> tuple [list, str]:
     Returns:
         list: the model number of the unit seperated by the dashes
     """
+    settings.work_order = str(self.work_order_le.text())
+    logging.info(f"Entered work order: {settings.work_order}")
+
     part_no = str(self.part_number_le.text())
     logging.info(f"Entered part number: {part_no}")
     description = str(self.description_cobo.currentText())
