@@ -40,6 +40,7 @@ def parse_info(self) -> tuple [list, str]:
             model = description
     else:
         desc = ['']
+        model = ''
     
     return desc, model
 
