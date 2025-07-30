@@ -877,7 +877,9 @@ def get_RUBY_label_current_number(week_of_the_year, number_of_units, part_number
     data = {"", "879838", "I0PAI-0000"}
     data2 = {"serial_number": "0", "part_number": "879838", "work_order": "I0PAI-0000"}
     data3 = list(data)
-    table_data = api_handler.post("serial_number/", data3)#for some reason this is failing to update the acess token
+    table_data = api_handler.post("serial_number/", data)
+    table_data = api_handler.post("serial_number/", data2)
+    table_data = api_handler.post("serial_number/", data3)
     print(f"table_1: {table_data}")
 
     table_data = table_data.data
