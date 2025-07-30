@@ -875,7 +875,7 @@ def is_user_in_group(user_name: str, in_group: str) -> bool:
 def get_RUBY_label_current_number(week_of_the_year, number_of_units, part_number, work_order) -> int:
     api_handler = APIHandler()
     data1 = {"0", "879838", "I0PAI-0000"}
-    data2 = ""
+    data2 = {"serial_number": ["",], "part_number": ["",], "work_order": ["",]}
     data3 = {0, "879838", "I0PAI-0000"}
     try:
         table_data = api_handler.get("serial_number/")

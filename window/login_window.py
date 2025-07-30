@@ -14,7 +14,6 @@ def get_info_from_barcode(self) -> str:
     return response
 
 def store_login_info(ID, username, password):
-
     saved_username_for_current_id = keyring.get_password(settings.username_table, ID)
     saved_username_for_current_id = saved_username_for_current_id
     if saved_username_for_current_id is not None:
@@ -79,7 +78,7 @@ class Login_Window(QtWidgets.QMainWindow):
         self.exit_pb = self.findChild(QtWidgets.QPushButton, "exit_pb")
         self.exit_pb.clicked.connect(self.exit)
         ############################################################################
-
+        
         # LINE EDITS:
         ############################################################################
         self.work_order_le = self.findChild(QtWidgets.QLineEdit, "work_order_le")
@@ -87,7 +86,6 @@ class Login_Window(QtWidgets.QMainWindow):
         self.password_le = self.findChild(QtWidgets.QLineEdit, "password_le")
         self.ID_number_le = self.findChild(QtWidgets.QLineEdit, "ID_number_le")
         ############################################################################
-
         self.show()
 
     def login(self):
