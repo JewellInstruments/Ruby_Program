@@ -874,8 +874,9 @@ def is_user_in_group(user_name: str, in_group: str) -> bool:
 
 def get_RUBY_label_current_number(week_of_the_year, number_of_units, part_number, work_order) -> int:
     api_handler = APIHandler()
+    data = {"ENG_TEST", part_number, work_order}
 
-    table_data = api_handler.post("serial_number/", ["ENG_TEST", part_number, work_order])#for some reason this is failing to update the acess token
+    table_data = api_handler.post("serial_number/", data)#for some reason this is failing to update the acess token
     print(f"table_1: {table_data}")
 
     table_data = table_data.data
