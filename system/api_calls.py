@@ -917,7 +917,7 @@ def get_RUBY_label_current_number(week_of_the_year, number_of_units, part_number
             api_handler.update("SerialNumber_serialnumbertrack", table_data) #set current_week to the week_of_the_year, set current_number to 0 
             start_number = current_number + 1
     except Exception as e:
-        print(f"bassicly the call to the api you tried earlier does not work, I am not sure why it is designed so differently from everything else, why cant I just do a get?? offical error: {e} ")
+        print(f"Basicly the call to the api you tried earlier does not work, I am not sure why it is designed so differently from everything else, why cant I just do a get?? offical error: {e} ")
         start_number = 0
     return start_number
 
