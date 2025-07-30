@@ -881,20 +881,20 @@ def get_RUBY_label_current_number(week_of_the_year, number_of_units, part_number
         table_data1 = api_handler.post("serial_number/", data1)
         print(f"data1: {table_data1}")
         print(f"data1 data: {table_data1.data}")
-    except:
-        print("data1 did not work")
+    except Exception as e:
+        print(f"data1 did not work, error: {e}")
     try:
         table_data2 = api_handler.post("serial_number/", data2)
         print(f"data2: {table_data2}")
         print(f"data2 data: {table_data2.data}")
-    except:
-        print("data2 did not work")
+    except Exception as e:
+        print(f"data2 did not work, error: {e}")
     try:
         table_data3 = api_handler.post("serial_number/", data3)
         print(f"data3: {table_data3}")
         print(f"data3 data: {table_data3.data}")
-    except:
-        print("data3 did not work")
+    except Exception as e:
+        print(f"data3 did not work, error: {e}")
     #print(f"table_1: {table_data}")
 
     table_data = table_data1.data
