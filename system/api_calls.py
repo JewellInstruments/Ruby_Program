@@ -874,24 +874,30 @@ def is_user_in_group(user_name: str, in_group: str) -> bool:
 
 def get_RUBY_label_current_number(week_of_the_year, number_of_units, part_number, work_order) -> int:
     api_handler = APIHandler()
-    data = {"", "879838", "I0PAI-0000"}
+    data1 = {"", "879838", "I0PAI-0000"}
     data2 = {"serial_number": "0", "part_number": "879838", "work_order": "I0PAI-0000"}
-    data3 = list(data)
+    data3 = list(data1)
     try:
-        table_data = api_handler.post("serial_number/", data)
+        table_data1 = api_handler.post("serial_number/", data1)
+        print(f"data1: {table_data1}")
+        print(f"data1 data: {table_data1.data}")
     except:
-        print("data did not work")
+        print("data1 did not work")
     try:
-        table_data = api_handler.post("serial_number/", data2)
+        table_data2 = api_handler.post("serial_number/", data2)
+        print(f"data1: {table_data2}")
+        print(f"data1 data: {table_data2.data}")
     except:
         print("data2 did not work")
     try:
-        table_data = api_handler.post("serial_number/", data3)
+        table_data3 = api_handler.post("serial_number/", data3)
+        print(f"data1: {table_data3}")
+        print(f"data1 data: {table_data3.data}")
     except:
         print("data3 did not work")
-    print(f"table_1: {table_data}")
+    #print(f"table_1: {table_data}")
 
-    table_data = table_data.data
+    table_data = table_data1.data
     print(f"Table data: {table_data}") #returns none
     current_week = table_data["current_week"] 
     current_number = table_data["current_number"]
