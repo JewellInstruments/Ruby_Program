@@ -79,8 +79,11 @@ class Main_Window(QtWidgets.QMainWindow):
         # LINE EDITS
         ############################################################################
         self.part_number_le = self.findChild(QtWidgets.QLineEdit, "part_number_le")
+        self.work_order_le = self.findChild(QtWidgets.QLineEdit, "work_order_le")
         if settings.work_order_part_no != '':
+            self.work_order_le.setText(settings.work_order.strip())
             self.part_number_le.setText(settings.work_order_part_no.strip())
+            self.work_order_le.setEnabled(False)
             self.part_number_le.setEnabled(False)
         ############################################################################
 
@@ -184,7 +187,7 @@ class Main_Window(QtWidgets.QMainWindow):
     
     def create_label(self):
         """Creates a label for the specified work order"""
-        if settings.work_order_part_no == '':
+        if self.work_order_le == '':
             settings.error_message("A work order must have been selected to print labels")
             return
         units = 0
