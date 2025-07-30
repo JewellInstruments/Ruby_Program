@@ -890,7 +890,7 @@ def get_RUBY_label_current_number(week_of_the_year, number_of_units, part_number
     except Exception as e:
         print(f"data1 did not work, error: {e}")
     try:
-        table_data2 = api_handler.get("serial_number/", data2)
+        table_data2 = api_handler.post("serial_number/", data2)
         print(f"data2: {table_data2}")
         print(f"data2 data: {table_data2.data}")
     except Exception as e:
