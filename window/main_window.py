@@ -15,11 +15,17 @@ def parse_info(self) -> tuple [list, str]:
     """
     settings.work_order = str(self.work_order_le.text())
     logging.info(f"Entered work order: {settings.work_order}")
-
-    part_no = str(self.part_number_le.text())
-    logging.info(f"Entered part number: {part_no}")
-    description = str(self.description_cobo.currentText())
-    logging.info(f"Entered description number: {description}")
+    if settings.work_order != '':
+        work_order, sales_order, customer, settings.work_order_part_no, settings.qty = api_calls.get_work_order(self.work_order_le.text())
+        part_no = settings.work_order_part_no
+        logging.info(f"Aquired part number: {part_no} from work order")
+        description = str(self.description_cobo.currentText())
+        logging.info(f"Aquired description number: {description} from work order")
+    else:
+        part_no = str(self.part_number_le.text())
+        logging.info(f"Entered part number: {part_no}")
+        description = str(self.description_cobo.currentText())
+        logging.info(f"Entered description number: {description}")
     if part_no != '':
         try: 
             model = settings.ruby_conversion_chart[part_no]
