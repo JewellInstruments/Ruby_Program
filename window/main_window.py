@@ -2,6 +2,7 @@ import sys
 import logging
 import os
 import datetime
+import time
 import shutil
 import system.api_calls as api_calls
 import system.settings as settings
@@ -204,7 +205,7 @@ class Main_Window(QtWidgets.QMainWindow):
         printed_before = False
         for file in os.listdir(settings.LABEL_BASE):
             if file == f"{settings.work_order}.csv":
-                print_date = os.path.getctime(os.path.join(settings.LABEL_BASE, f"{settings.work_order}.csv"))
+                print_date = time.ctime(os.path.getctime(os.path.join(settings.LABEL_BASE, f"{settings.work_order}.csv")))
                 settings.error_message(f"labels for this job have already been printed on {print_date}, please double check all information and remove original file if required:\n {settings.LABEL_BASE}")
                 printed_before = True
         if printed_before is False:
