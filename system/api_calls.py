@@ -934,9 +934,10 @@ def get_RUBY_label_current_number_v2(year, week_of_the_year, number_of_units, pa
         start_number = last_unit
 
     RUBY_label_log = openpyxl.load_workbook(os.path.join(settings.POWER_BASE, "RUBY_label_log.xlsx"))
-    RUBY_label_log["A2"] = year
-    RUBY_label_log["B2"] = week_of_the_year
-    RUBY_label_log["C2"] = number_of_units
+    log_sheet = RUBY_label_log['Sheet1']
+    log_sheet["A2"] = year
+    log_sheet["B2"] = week_of_the_year
+    log_sheet["C2"] = number_of_units
 
     return start_number
 
