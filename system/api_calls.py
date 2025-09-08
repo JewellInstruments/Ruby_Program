@@ -929,10 +929,10 @@ def get_RUBY_label_current_number_v2(year, week_of_the_year, number_of_units, pa
     else:
         start_number = last_unit + 1
     
-    RUBY_label_log = pandas.DataFrame(os.path.join(settings.POWER_BASE, "RUBY_label_log.xlsx"))
     RUBY_label_log.at[0, 0] = year
     RUBY_label_log.at[0, 1] = week_of_the_year
     RUBY_label_log.at[0, 2] = (start_number + number_of_units)
+    RUBY_label_log.to_excel(os.path.join(settings.POWER_BASE, "RUBY_label_log.xlsx"))
 
     return start_number
 
