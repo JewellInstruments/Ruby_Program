@@ -923,7 +923,11 @@ def get_RUBY_label_current_number_v2(year, week_of_the_year, number_of_units, pa
     last_year = RUBY_label_log.iloc[0, 0]
     last_week = RUBY_label_log.iloc[0, 1]
     last_unit = RUBY_label_log.iloc[0, 2]
-    
+
+    print(f"last_year: {last_year}")
+    print(f"last_week: {last_week}")
+    print(f"last_unit: {last_unit}")
+
     if (last_year != year) or (last_week !=week_of_the_year):
         start_number = 1
     else:
@@ -932,6 +936,14 @@ def get_RUBY_label_current_number_v2(year, week_of_the_year, number_of_units, pa
     RUBY_label_log.at[0, 0] = year
     RUBY_label_log.at[0, 1] = week_of_the_year
     RUBY_label_log.at[0, 2] = (start_number + number_of_units)
+
+    new_year = RUBY_label_log.iloc[0, 0]
+    new_week = RUBY_label_log.iloc[0, 1]
+    new_unit = RUBY_label_log.iloc[0, 2]
+
+    print(f"new_year: {new_year}")
+    print(f"new_week: {new_week}")
+    print(f"new_unit: {new_unit}")
     RUBY_label_log.to_excel(os.path.join(settings.POWER_BASE, "RUBY_label_log.xlsx"))
 
     return start_number
