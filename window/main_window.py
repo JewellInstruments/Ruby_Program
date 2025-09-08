@@ -211,9 +211,7 @@ class Main_Window(QtWidgets.QMainWindow):
             axis_no = 'x'
         else:
             axis_no = 'xy'
-        week_of_the_year = datetime.date.today().isocalendar().week
-        year = datetime.date.today().isocalendar().year
-        start_number = api_calls.get_RUBY_label_current_number_v2(year, week_of_the_year, settings.qty, settings.work_order_part_no, settings.work_order)
+
         printed_before = False
         for file in os.listdir(settings.LABEL_BASE):
             if file == f"{settings.work_order}.csv":
@@ -221,6 +219,9 @@ class Main_Window(QtWidgets.QMainWindow):
                 settings.error_message(f"labels for this job have already been printed on {print_date}, please double check all information and remove original file if required:\n {settings.LABEL_BASE}")
                 printed_before = True
         if printed_before is False:
+            week_of_the_year = datetime.date.today().isocalendar().week
+            year = datetime.date.today().isocalendar().year
+            start_number = api_calls.get_RUBY_label_current_number_v2(year, week_of_the_year, settings.qty, settings.work_order_part_no, settings.work_order)
             file = os.path.join(settings.LABEL_BASE, f"{settings.work_order}.csv")
             with open(file, "a") as write_file:
                     write_file.write('part_number, model_number, serial_number, matrix_text, image_path, ROHS_image, CE_image\n')
