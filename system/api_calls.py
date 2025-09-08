@@ -1,9 +1,9 @@
 import socket
-#import os
+import os
 import logging
 import requests
 import contextlib
-
+import pandas
 from dataclasses import dataclass
 
 import system.settings as settings
@@ -866,7 +866,7 @@ def is_user_in_group(user_name: str, in_group: str) -> bool:
     return False
 
 
-def get_RUBY_label_current_number(week_of_the_year, number_of_units, part_number, work_order) -> int:
+def get_RUBY_label_current_number(year, week_of_the_year, number_of_units, part_number, work_order) -> int:
     api_handler = APIHandler()
     data1 = {"0", "879838", "I0PAI-0000"}
     data2 = {"serial_number": ["2025W22-00001",], "part_number": ["879838",], "work_order": ["I0PAI-0000",]}
@@ -915,4 +915,20 @@ def get_RUBY_label_current_number(week_of_the_year, number_of_units, part_number
         start_number = 0
     return start_number
 
+def get_RUBY_label_current_number_v2(year, week_of_the_year, number_of_units, part_number, work_order) -> int:
+    RUBY_label_log = pandas.read_excel(os.path.join(settings.POWER_BASE, "RUBY_label_log.xlsx"))
+
+    last_year = RUBY_label_log.iloc[1, 1]
+    last_week = RUBY_label_log.iloc[1, 2]
+    last_unit = RUBY_label_log.iloc[1, 3]
+    
+    if (last_year != year) or (last_week !=week_of_the_year):
+        start_number = 0
+    else:
+        start_number = last_unit + 1
+    RUBY_label_log.at[1, 1] = year
+    RUBY_label_log.at[1, 2] = week_of_the_year
+    RUBY_label_log.at[1, 3] = (start_number + number_of_units)
+
+    return start_number
 
