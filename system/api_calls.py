@@ -933,11 +933,25 @@ def get_RUBY_label_current_number_v2(year, week_of_the_year, number_of_units, pa
     else:
         start_number = last_unit
 
+    update_ruby_label_count(year, week_of_the_year, number_of_units, start_number)
+
+    RUBY_label_log = pandas.read_excel(os.path.join(settings.POWER_BASE, "RUBY_label_log.xlsx"))
+    
+    new_year = RUBY_label_log.iloc[0, 0]
+    new_week = RUBY_label_log.iloc[0, 1]
+    new_unit = RUBY_label_log.iloc[0, 2]
+
+    print(f"new_year: {new_year}")
+    print(f"new_week: {new_week}")
+    print(f"new_unit: {new_unit}")
+
+    return start_number
+
+
+def update_ruby_label_count(year, week_of_the_year, number_of_units, start_number):
     RUBY_label_log = openpyxl.load_workbook(os.path.join(settings.POWER_BASE, "RUBY_label_log.xlsx"))
     log_sheet = RUBY_label_log['Sheet1']
     log_sheet["A2"] = year
     log_sheet["B2"] = week_of_the_year
     log_sheet["C2"] = start_number + number_of_units
-
-    return start_number
-
+    return
