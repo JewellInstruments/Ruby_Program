@@ -242,7 +242,7 @@ class Main_Window(QtWidgets.QMainWindow):
                     )
                 logging.info(f'Created label using the following info: {part_number},{model_number},{serial_number},"{matrix}",{axis_no},RoHS,ce-mark-thumbnail')
                 units += 1
-            #shutil.copy(file, os.path.join(settings.PRINT_BASE, f"{settings.work_order}.csv"))
+            shutil.copy(file, os.path.join(settings.PRINT_BASE, f"{settings.work_order}.csv"))
             settings.message("Print sucessfull!")
         self.create_label_pb.setEnabled(False)
         return
