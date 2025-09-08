@@ -932,7 +932,11 @@ def get_RUBY_label_current_number_v2(year, week_of_the_year, number_of_units, pa
         start_number = 1
     else:
         start_number = last_unit
-    
+
+    RUBY_label_log.iloc[0, 0] = year
+    RUBY_label_log.iloc[0, 1] = week_of_the_year
+    RUBY_label_log.iloc[0, 2] = number_of_units
+
     with pandas.ExcelWriter(os.path.join(settings.POWER_BASE, "RUBY_label_log.xlsx"), mode="a", if_sheet_exists="replace") as writer:
         RUBY_label_log.to_excel(writer)
 
