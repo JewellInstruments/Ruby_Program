@@ -925,7 +925,7 @@ def get_RUBY_label_current_number_v2(year, week_of_the_year, number_of_units, pa
     last_unit = RUBY_label_log.iloc[0, 2]
     
     if (last_year != year) or (last_week !=week_of_the_year):
-        start_number = 0
+        start_number = 1
     else:
         start_number = last_unit + 1
     
