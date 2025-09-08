@@ -931,20 +931,10 @@ def get_RUBY_label_current_number_v2(year, week_of_the_year, number_of_units, pa
     if (last_year != year) or (last_week !=week_of_the_year):
         start_number = 1
     else:
-        start_number = last_unit + 1
+        start_number = last_unit
     
-    RUBY_label_log.at[0, 0] = year
-    RUBY_label_log.at[0, 1] = week_of_the_year
-    RUBY_label_log.at[0, 2] = (start_number + number_of_units)
-
-    new_year = RUBY_label_log.iloc[0, 0]
-    new_week = RUBY_label_log.iloc[0, 1]
-    new_unit = RUBY_label_log.iloc[0, 2]
-
-    print(f"new_year: {new_year}")
-    print(f"new_week: {new_week}")
-    print(f"new_unit: {new_unit}")
-    RUBY_label_log.to_excel(os.path.join(settings.POWER_BASE, "RUBY_label_log.xlsx"))
+    with pandas.ExcelWriter(os.path.join(settings.POWER_BASE, "RUBY_label_log.xlsx"), mode="a", if_sheet_exists="replace") as writer:
+        RUBY_label_log.to_excel(writer)
 
     return start_number
 
