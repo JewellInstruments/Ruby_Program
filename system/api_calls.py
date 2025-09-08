@@ -951,7 +951,9 @@ def get_RUBY_label_current_number_v2(year, week_of_the_year, number_of_units, pa
 def update_ruby_label_count(year, week_of_the_year, number_of_units, start_number):
     RUBY_label_log = openpyxl.load_workbook(os.path.join(settings.POWER_BASE, "RUBY_label_log.xlsx"))
     log_sheet = RUBY_label_log['Sheet1']
-    log_sheet['A2'].set_value = year
-    log_sheet['B2'].set_value = week_of_the_year
-    log_sheet['C2'].set_value = start_number + number_of_units
+    log_sheet['A2'] = year
+    log_sheet['B2'] = week_of_the_year
+    log_sheet['C2'] = start_number + number_of_units
+
+    RUBY_label_log.save(os.path.join(settings.POWER_BASE, "RUBY_label_log.xlsx"))
     return
