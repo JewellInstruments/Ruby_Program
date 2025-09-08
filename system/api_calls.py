@@ -918,17 +918,17 @@ def get_RUBY_label_current_number(year, week_of_the_year, number_of_units, part_
 def get_RUBY_label_current_number_v2(year, week_of_the_year, number_of_units, part_number, work_order) -> int:
     RUBY_label_log = pandas.read_excel(os.path.join(settings.POWER_BASE, "RUBY_label_log.xlsx"))
 
-    last_year = RUBY_label_log.iloc[1, 1]
-    last_week = RUBY_label_log.iloc[1, 2]
-    last_unit = RUBY_label_log.iloc[1, 3]
+    last_year = RUBY_label_log.iloc[0, 0]
+    last_week = RUBY_label_log.iloc[0, 1]
+    last_unit = RUBY_label_log.iloc[0, 2]
     
     if (last_year != year) or (last_week !=week_of_the_year):
         start_number = 0
     else:
         start_number = last_unit + 1
-    RUBY_label_log.at[1, 1] = year
-    RUBY_label_log.at[1, 2] = week_of_the_year
-    RUBY_label_log.at[1, 3] = (start_number + number_of_units)
+    RUBY_label_log.at[0, 0] = year
+    RUBY_label_log.at[0, 1] = week_of_the_year
+    RUBY_label_log.at[0, 2] = (start_number + number_of_units)
 
     return start_number
 
