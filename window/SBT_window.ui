@@ -143,7 +143,7 @@
      <string>Serial Number:</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="serial_nuber_le">
+   <widget class="QLineEdit" name="serial_number_le">
     <property name="geometry">
      <rect>
       <x>380</x>
