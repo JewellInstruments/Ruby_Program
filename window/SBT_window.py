@@ -114,7 +114,7 @@ class SBT_Window(QtWidgets.QMainWindow):
             settings.error_message("Error: Calibration data file cannot be found!")
             return
         serial_no = str(self.serial_number_le.text())
-        axis = description[1][0]
+        axis = int(description[1][0])
         resistors_list = []
         if axis == 3:
             z_data = pandas.read_excel(file, sheet_name="Z axis")
