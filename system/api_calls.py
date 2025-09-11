@@ -917,6 +917,7 @@ def get_RUBY_label_current_number(year, week_of_the_year, number_of_units, part_
         start_number = 0
     return start_number
 
+
 def get_RUBY_label_current_number_v2(year, week_of_the_year, number_of_units, part_number, work_order) -> int:
     RUBY_label_log = pandas.read_excel(os.path.join(settings.POWER_BASE, "RUBY_label_log.xlsx"))
 

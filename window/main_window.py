@@ -48,7 +48,6 @@ def parse_info(self) -> tuple [list, str]:
     else:
         desc = ['']
         model = ''
-    
     return desc, model
 
 class Main_Window(QtWidgets.QMainWindow):
@@ -113,14 +112,15 @@ class Main_Window(QtWidgets.QMainWindow):
         ############################################################################
         self.description_cobo = self.findChild(QtWidgets.QComboBox, "description_cobo")
         ############################################################################
+
+        #disable the program digital ruby option for analog units
+        description = settings.ruby_conversion_chart[settings.work_order_part_no.strip()]
+        if "JDS" not in description:
+            self.program_pb.setEnabled(False)
         self.show()
 
     def first_assy(self):
-        """Opens the appropriate power point for assembling a unit of the specified model number
-
-        Returns:
-            self.exit(): closes the program after a power point is opened
-        """
+        """Opens the appropriate power point for assembling a unit of the specified model number"""
         desc, model_number = parse_info(self) #JMHI-200-1-L-30
         if desc == ['']:
             settings.error_message("You have not selected an option")
@@ -150,14 +150,10 @@ class Main_Window(QtWidgets.QMainWindow):
             os.startfile(os.path.join(file_path, file_name))
         except Exception:
             settings.error_message("Cam has not created a power point for this unit, tell him to do it")
-            return
-        return self.exit()
+        return 
     
     def cover_assy(self):
-        """Opens the appropriate power point for assembling the cover for a unit of the specified model number
-        Returns:
-            self.exit(): closes the program after a power point is opened
-        """
+        """Opens the appropriate power point for assembling the cover for a unit of the specified model number"""
         desc, model_number = parse_info(self) #JMHI-200-1-L-30
         print(f"desc: {desc}")
         if desc == ['']:
@@ -174,13 +170,10 @@ class Main_Window(QtWidgets.QMainWindow):
         except Exception:
             settings.error_message("Cam has not created a power point for this unit, tell him to do it")
             return
-        return self.exit()
+        return
     
     def calibration(self):
-        """Opens the appropriate excel sheet for calibrating a unit of the specified model number
-        Returns:
-            self.exit(): closes the program after a power point is opened
-        """
+        """Opens the appropriate excel sheet for calibrating a unit of the specified model number"""
         desc, model_number = parse_info(self) #JMHI-200-1-L-30
         if desc == ['']:
             settings.error_message("You have not selected an option")
@@ -195,7 +188,7 @@ class Main_Window(QtWidgets.QMainWindow):
             print(file_name)
             settings.error_message("Cam has not created a cal sheet for this unit, tell him to do it")
             return
-        return self.exit()
+        return
     
     def create_label(self):
         """Creates a label for the specified work order"""
@@ -248,30 +241,24 @@ class Main_Window(QtWidgets.QMainWindow):
         return
     
     def final_assy(self):
-        """Opens a power point that containins the instructions for assembling the ruby cover to base
-        Returns:
-            self.exit(): closes the program after a power point is opened
-        """
+        """Opens a power point that containins the instructions for assembling the ruby cover to base"""
         file_name = "RUBY Final Assembly.pptx"
         try:
             os.startfile(os.path.join(settings.POWER_BASE, file_name))
         except Exception:
             settings.error_message("Cam has not created a power point for this part, tell him to do it")
             return
-        return self.exit()
+        return
     
     def program(self):
-        """Opens a power point that containins the instructions for programing the digital ruby
-        Returns:
-            self.exit(): closes the program after a power point is opened
-        """
+        """Opens a power point that containins the instructions for programing the digital ruby"""
         file_name = "Digital RUBY Programing.pptx"
         try:
             os.startfile(os.path.join(settings.POWER_BASE, file_name))
         except Exception:
             settings.error_message("Cam has not created a power point for this part, tell him to do it")
             return
-        return self.exit()
+        return
 
     def help(self):
         """Launch the help window."""

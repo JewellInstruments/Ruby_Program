@@ -90,7 +90,7 @@ def help_message(help_message: str, name: str =''):
 
 ruby_conversion_chart = {
     "Part_number":"model_number",
-    "02550431-1112" : "JMHAA-100-1-S-0.5",
+    "02550431-1112" : "JMHA-100-1-S-0.5",
     "02550431-1113" : "JMHA-100-1-S-1.0",
     "02550431-1114" : "JMHA-100-1-S-2.0",
     "02550431-1116" : "JMHA-100-1-S-4.0",
