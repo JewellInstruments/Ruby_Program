@@ -25,7 +25,7 @@ def read_data(serial_no, data):
         BIAS = [col for col in row.columns if 'bias' in col]
     except:
         BIAS = [col for col in row.columns if 'deg' in col]
-    SF = int([col for col in row.columns if 'SF' in col])
+    SF = [col for col in row.columns if 'SF' in col]
     print(f"Bias resistor: {BIAS}")
     print(f"SF resistor: {SF}")
     
