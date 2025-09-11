@@ -22,12 +22,12 @@ def read_data(serial_no, data):
     row = filtered_data.tail(1)
     #at this point I have the right row and is it of type dataframe
     try:
-        bias = int([col for col in row.columns if 'bias' in col])
+        BIAS = [col for col in row.columns if 'bias' in col]
     except:
-        bias = int([col for col in row.columns if 'deg' in col])
-    sf = int([col for col in row.columns if 'SF' in col])
-    print(f"Bias resistor: {bias}")
-    print(f"SF resistor: {sf}")
+        BIAS = [col for col in row.columns if 'deg' in col]
+    SF = int([col for col in row.columns if 'SF' in col])
+    print(f"Bias resistor: {BIAS}")
+    print(f"SF resistor: {SF}")
     
     bias1, bias2 = calculate_resistors_in_parallel(bias)
     sf1, sf2 = calculate_resistors_in_parallel(sf)
