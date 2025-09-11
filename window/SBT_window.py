@@ -20,12 +20,15 @@ def read_data(serial_no, data):
     except:
         filtered_data = data[data["SN"] == serial_no].head()
     row = filtered_data.tail(1)
-    print(f"row: {row}")
-    print(f"row type: {type(row)}")
-
-
-
-
+    #at this point I have the right row and is it of type dataframe
+    try:
+        bias = int([col for col in row.columns if 'bias' in col])
+    except:
+        bias = int([col for col in row.columns if 'deg' in col])
+    sf = int([col for col in row.columns if 'SF' in col])
+    print(f"Bias resistor: {bias}")
+    print(f"SF resistor: {sf}")
+    
     bias1, bias2 = calculate_resistors_in_parallel(bias)
     sf1, sf2 = calculate_resistors_in_parallel(sf)
     
