@@ -25,7 +25,8 @@ def read_data(serial_no, data):
     
     return bias1, bias2, sf1, sf2
 
-def display_resistors():
+def display_resistors(list):
+    print(f"list of resistors: {list}")
     return
 
 class BarcodeEntryPopup(QtWidgets.QDialog):
@@ -118,21 +119,21 @@ class SBT_Window(QtWidgets.QMainWindow):
         resistors_list = []
         if axis == 3:
             z_data = pandas.read_excel(file, sheet_name="Z axis")
-            R27, R28, Runkown1, Runknown2 = read_data(serial_no, z_data)
+            R27, R28, Runkown1, Runknown2 = read_data(serial_no, pandas.DataFrame(z_data))
             resistors_list.append(R27)
             resistors_list.append(R28)
             resistors_list.append(Runkown1)
             resistors_list.append(Runknown2)
         if axis >= 2:
             y_data = pandas.read_excel(file, sheet_name="Y axis")
-            R20, R21, R15, R18 = read_data(serial_no, y_data)
+            R20, R21, R15, R18 = read_data(serial_no, pandas.DataFrame(y_data))
             resistors_list.append(R20)
             resistors_list.append(R21)
             resistors_list.append(R15)
             resistors_list.append(R18)
         if axis >= 1: 
             x_data = pandas.read_excel(file, sheet_name="X axis")
-            R13, R14, R8, R11 = read_data(serial_no, x_data)
+            R13, R14, R8, R11 = read_data(serial_no, pandas.DataFrame(x_data))
             resistors_list.append(R13)
             resistors_list.append(R14)
             resistors_list.append(R8)
