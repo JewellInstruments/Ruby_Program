@@ -31,8 +31,8 @@ def read_data(serial_no, data):
     print(f"row: {row}")
     #B = data.iloc[row2,1]
     #S = data.iloc[row2,2]
-    B = data.iloc[row3,1]
-    S = data.iloc[row3,2]
+    B = int(data.iloc[row3,1])
+    S = int(data.iloc[row3,2])
     
     BIAS = row.iloc[:,1]
     SF = row.iloc[:,2]
