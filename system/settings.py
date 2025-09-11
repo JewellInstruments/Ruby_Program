@@ -62,6 +62,7 @@ print("logging setup correctly")
 #help statements
 MAIN_HELP_LINK = "link not available"
 LOGIN_HELP_LINK = "link not available"
+SBT_HELP_LINK = "link not available"
 
 #popup messages (no user input)
 def error_message(error_message: str):

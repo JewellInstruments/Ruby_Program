@@ -80,6 +80,9 @@ class Main_Window(QtWidgets.QMainWindow):
         self.program_pb = self.findChild(QtWidgets.QPushButton, "program_pb")
         self.program_pb.clicked.connect(self.program)
 
+        self.SBT_pb = self.findChild(QtWidgets.QPushButton, "install_SBT_pb")
+        self.SBT_pb.clicked.connect(self.install_SBT)
+
         self.help_pb = self.findChild(QtWidgets.QPushButton, "help_pb")
         self.help_pb.clicked.connect(self.help)
 
@@ -238,6 +241,10 @@ class Main_Window(QtWidgets.QMainWindow):
             shutil.copy(file, os.path.join(settings.PRINT_BASE, f"{settings.work_order}.csv"))
             settings.message("Print sucessfull!")
         self.create_label_pb.setEnabled(False)
+        return
+    
+    def install_SBT():
+        
         return
     
     def final_assy(self):
