@@ -21,11 +21,10 @@ def read_data(serial_no, data):
         filtered_data = data[data["SN"] == serial_no].head()
     row = filtered_data.tail(1)
     #at this point I have the right row and is it of type dataframe
-    try:
-        BIAS = [col for col in row.columns if 'bias' in col]
-    except:
-        BIAS = [col for col in row.columns if 'deg' in col]
-    SF = [col for col in row.columns if 'SF' in col]
+    print(f"row: {row}")
+    
+    BIAS = row.iloc[:,1]
+    SF = row.iloc[:,2]
     print(f"Bias resistor: {BIAS}")
     print(f"SF resistor: {SF}")
     
