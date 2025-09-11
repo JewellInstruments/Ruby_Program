@@ -41,6 +41,7 @@ def read_data(serial_no, data):
     print(f"SF resistor: {SF} of type: {type(S)}")
     print(f"SF resistor 2: {S} of type: {type(S)}")
     
+    #CAM THIS IS WHERE YOU LEFT OFF 9/11/2025 @ 4:22pm the above needs to be cleaned up but "B" and "S" are the values of the bias and sf resistors as ints and are ready to be passed into the calculate_resistors_function!
     bias1, bias2 = calculate_resistors_in_parallel(bias)
     sf1, sf2 = calculate_resistors_in_parallel(sf)
     
