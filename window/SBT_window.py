@@ -103,7 +103,7 @@ class SBT_Window(QtWidgets.QMainWindow):
             settings.error_message("Error: Calibration data file cannot be found!")
             return
         
-        axis = description[1][0:]
+        axis = description[1][0]
         print(f"axis #: {axis}")
         x_data = pandas.read_excel(file, sheet_name="X axis")
         y_data = pandas.read_excel(file, sheet_name="Y axis")
