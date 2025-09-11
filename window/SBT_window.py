@@ -87,11 +87,13 @@ class SBT_Window(QtWidgets.QMainWindow):
         """
         logging.info("SBT start button pushed")
         desc = settings.ruby_conversion_chart[settings.work_order_part_no.strip()]
-        if desc == ['']:
+        description = desc.split("-")
+        print(f"description: {description}")
+        if description == ['']:
             settings.error_message("You have not selected an option")
             return 
-        unit_range = str(desc[4])
-        if str(desc[0]) == 'JMHA':
+        unit_range = str(description[4])
+        if str(description[0]) == 'JMHA':
             unit_range = f"{unit_range}g"
         file_name = f"RUBY {str(desc[3])} {unit_range}.xlsx"
         try:
@@ -101,7 +103,7 @@ class SBT_Window(QtWidgets.QMainWindow):
             settings.error_message("Error: Calibration data file cannot be found!")
             return
         
-        axis = desc[1][0:]
+        axis = description[1][0:]
         print(f"axis #: {axis}")
         x_data = pandas.read_excel(file, sheet_name="X axis")
         y_data = pandas.read_excel(file, sheet_name="Y axis")
