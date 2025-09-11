@@ -23,8 +23,8 @@ def read_data(serial_no, data):
     #at this point I have the right row and is it of type dataframe
     print(f"row: {row}")
     
-    BIAS = row.iloc[:,1]
-    SF = row.iloc[:,2]
+    BIAS = row.at[:,1]
+    SF = row.at[:,2]
     print(f"Bias resistor: {BIAS}")
     print(f"SF resistor: {SF}")
     
