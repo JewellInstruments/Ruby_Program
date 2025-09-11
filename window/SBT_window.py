@@ -22,8 +22,11 @@ def read_data(serial_no, data):
         filtered_data = data[data["SN"] == serial_no].head()
         row_index = data[data["SN"] == serial_no].index[0]
     row = filtered_data.tail(1)
+    print(f"row2: {row_index} of type {type(row_index)}")
+    
+    row3 = row.index[0]
+    print(f"row3: {row3} of type {type(row3)}")
     row2 = max(row_index)
-
     #at this point I have the right row and is it of type dataframe
     print(f"row: {row}")
     B = data.iloc[row2,1]
