@@ -13,13 +13,14 @@ def calculate_resistors_in_parallel(target_resistor):
     return str(r1), str(r2)
 
 def read_data(serial_no, data):
-    print(f"data:{data}")
     bias = 0
     sf = 0
-    for line in data[-1]:
+    for line in data:
         print(f"line: {line}")
         if serial_no in line:
             print("found sn!")
+
+
 
 
     bias1, bias2 = calculate_resistors_in_parallel(bias)
