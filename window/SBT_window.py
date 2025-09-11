@@ -86,7 +86,7 @@ class SBT_Window(QtWidgets.QMainWindow):
         This function checks the provided login information and if true passes the entered info to the next window
         """
         logging.info("SBT start button pushed")
-        desc = settings.work_order_part_no
+        desc = settings.ruby_conversion_chart[settings.work_order_part_no.strip()]
         if desc == ['']:
             settings.error_message("You have not selected an option")
             return 
