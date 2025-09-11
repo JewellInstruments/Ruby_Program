@@ -17,16 +17,24 @@ def read_data(serial_no, data):
     sf = 0
     try:
         filtered_data = data[data["Serial number"] == serial_no].head()
+        row_index = data[data["Serial number"] == serial_no].index[0]
     except:
         filtered_data = data[data["SN"] == serial_no].head()
+        row_index = data[data["SN"] == serial_no].index[0]
     row = filtered_data.tail(1)
+    row2 = max(row_index)
+
     #at this point I have the right row and is it of type dataframe
     print(f"row: {row}")
+    B = data.iloc[row2,1]
+    S = data.iloc[row2,2]
     
-    BIAS = row.at[:,1]
-    SF = row.at[:,2]
-    print(f"Bias resistor: {BIAS}")
-    print(f"SF resistor: {SF}")
+    BIAS = row.iloc[:,1]
+    SF = row.iloc[:,2]
+    print(f"Bias resistor: {BIAS} of type: {type(BIAS)}")
+    print(f"Bias resistor 2: {B} of type: {type(B)}")
+    print(f"SF resistor: {SF} of type: {type(S)}")
+    print(f"SF resistor 2: {S} of type: {type(S)}")
     
     bias1, bias2 = calculate_resistors_in_parallel(bias)
     sf1, sf2 = calculate_resistors_in_parallel(sf)
