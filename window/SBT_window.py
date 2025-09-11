@@ -24,7 +24,7 @@ def read_data(serial_no, data):
     row = filtered_data.tail(1)
     print(f"row2: {row_index} of type {type(row_index)}")
     
-    row3 = row.index[0]
+    row3 = int(row.index[0])
     print(f"row3: {row3} of type {type(row3)}")
     row2 = max(row_index)
     #at this point I have the right row and is it of type dataframe
