@@ -7,6 +7,7 @@ import shutil
 import system.api_calls as api_calls
 import system.settings as settings
 from PyQt5 import QtWidgets, uic
+from window import SBT_window
 
 def parse_info(self) -> tuple [list, str]:
     """Takes the info entered by the user and determins the model number of the unit 
@@ -243,8 +244,12 @@ class Main_Window(QtWidgets.QMainWindow):
         self.create_label_pb.setEnabled(False)
         return
     
-    def install_SBT():
-        
+    def install_SBT(self):
+        """Launch the install_SBT window."""
+        print("you clicked the install_SBT button")
+        logging.info("opening the install_SBT_window")
+        self.install_SBT_app = SBT_window()
+        self.install_SBT_app.show()
         return
     
     def final_assy(self):
