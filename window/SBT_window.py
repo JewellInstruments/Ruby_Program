@@ -86,7 +86,7 @@ class SBT_Window(QtWidgets.QMainWindow):
         This function checks the provided login information and if true passes the entered info to the next window
         """
         logging.info("SBT start button pushed")
-        desc = str(self.serial_number_le)
+        desc = settings.work_order_part_no
         if desc == ['']:
             settings.error_message("You have not selected an option")
             return 
@@ -98,7 +98,7 @@ class SBT_Window(QtWidgets.QMainWindow):
             file = os.path.join(settings.EXCEL_BASE, file_name)
         except Exception:
             print(file_name)
-            settings.error_message("Error: Calibration data cannot be found!")
+            settings.error_message("Error: Calibration data file cannot be found!")
             return
         
         axis = desc[1][0:]
