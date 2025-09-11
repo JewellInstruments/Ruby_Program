@@ -95,7 +95,7 @@ class SBT_Window(QtWidgets.QMainWindow):
         unit_range = str(description[4])
         if str(description[0]) == 'JMHA':
             unit_range = f"{unit_range}g"
-        file_name = f"RUBY {str(desc[3])} {unit_range}.xlsx"
+        file_name = f"RUBY {str(description[3])} {unit_range}.xlsx"
         try:
             file = os.path.join(settings.EXCEL_BASE, file_name)
         except Exception:
