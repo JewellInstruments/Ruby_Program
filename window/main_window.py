@@ -248,7 +248,7 @@ class Main_Window(QtWidgets.QMainWindow):
         """Launch the install_SBT window."""
         print("you clicked the install_SBT button")
         logging.info("opening the install_SBT_window")
-        self.install_SBT_app = SBT_window()
+        self.install_SBT_app = SBT_window.SBT_Window()
         self.install_SBT_app.show()
         return
     
