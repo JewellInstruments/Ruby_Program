@@ -49,7 +49,7 @@ class SBT_Window(QtWidgets.QMainWindow):
         self.sn_barcode_pb.clicked.connect(self.barcode)
         
         self.start_pb = self.findChild(QtWidgets.QPushButton, "start_pb")
-        self.start_pb.clicked.connect(self.login)
+        self.start_pb.clicked.connect(self.start)
 
         self.help_pb = self.findChild(QtWidgets.QPushButton, "help_pb")
         self.help_pb.clicked.connect(self.help)
