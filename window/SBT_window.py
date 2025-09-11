@@ -15,10 +15,10 @@ def calculate_resistors_in_parallel(target_resistor):
 def read_data(serial_no, data):
     bias = 0
     sf = 0
-    for line in data:
-        print(f"line: {line}")
-        if serial_no in line:
-            print("found sn!")
+    filtered_data = data[data['Serial number'] == serial_no]
+    row = filtered_data.tail(1)
+    print(f"row: {row}")
+    print(f"row type: {type(row)}")
 
 
 
