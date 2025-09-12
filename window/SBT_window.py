@@ -173,7 +173,10 @@ class SBT_Window(QtWidgets.QMainWindow):
         axis = int(description[1][0])
         resistors_dict = {}
         if axis == 3:
-            z_data = pandas.read_excel(file, sheet_name="Z axis")
+            try:
+                z_data = pandas.read_excel(file, sheet_name="Z axis")
+            except:
+                z_data = pandas.read_excel(file, sheet_name="Z Axis")
             R27, R28, Runkown1, Runknown2 = read_data(serial_no, pandas.DataFrame(z_data))
             if R27 == "fail":
                 settings.error_message(f"no data was found for serial number: {serial_no}, please confirm work order and serial number details are correct and the unit has been calibrated then try again")
@@ -183,7 +186,10 @@ class SBT_Window(QtWidgets.QMainWindow):
             resistors_dict['Runkown1'] = Runkown1
             resistors_dict['Runknown2'] = Runknown2
         if axis >= 2:
-            y_data = pandas.read_excel(file, sheet_name="Y axis")
+            try:
+                y_data = pandas.read_excel(file, sheet_name="Y axis")
+            except:
+                y_data = pandas.read_excel(file, sheet_name="Y Axis")
             R20, R21, R15, R18 = read_data(serial_no, pandas.DataFrame(y_data))
             if R20 == "fail":
                 settings.error_message(f"no data was found for serial number: {serial_no}, please confirm work order and serial number details are correct and the unit has been calibrated then try again")
@@ -193,7 +199,10 @@ class SBT_Window(QtWidgets.QMainWindow):
             resistors_dict['R15'] = R15
             resistors_dict['R18'] = R18
         if axis >= 1: 
-            x_data = pandas.read_excel(file, sheet_name="X axis")
+            try:
+                x_data = pandas.read_excel(file, sheet_name="X axis")
+            except:
+                x_data = pandas.read_excel(file, sheet_name="X Axis")
             R13, R14, R8, R11 = read_data(serial_no, pandas.DataFrame(x_data))
             if R13 == "fail":
                 settings.error_message(f"no data was found for serial number: {serial_no}, please confirm work order and serial number details are correct and the unit has been calibrated then try again")
