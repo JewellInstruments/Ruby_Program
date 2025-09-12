@@ -198,7 +198,7 @@ class SBT_Window(QtWidgets.QMainWindow):
             resistors_dict['R8'] = R8
             resistors_dict['R11'] = R11
         
-        display_resistors(resistors_dict)
+        display_resistors(resistors_dict, axis)
         return
 
             
