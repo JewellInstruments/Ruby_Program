@@ -64,6 +64,8 @@ def display_resistors(resistor_dict, axis):
         elif i < 3:
             ending = "      "
             i+=1
+        else:
+            i=0
 
         text = text + resistor + ending
 
@@ -79,7 +81,7 @@ class ImagePopup(QtWidgets.QDialog):
         self.setFixedWidth(1600)
         self.setFixedHeight(950)
         font = QtGui.QFont()
-        font.setPointSize(22)
+        font.setPointSize(20)
         self.setFont(font)
 
         # Create a layout
