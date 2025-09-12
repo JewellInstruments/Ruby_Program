@@ -13,11 +13,11 @@ def convert_resistor_to_string(resistor):
         resistor = resistor/1000
         ending = "K"
     res = str(resistor)
-    return (res + ending)
+    return (res + " " + ending)
 
 def calculate_resistors_in_parallel(target_resistor):
-    r1 = 0
-    r2 = 0
+    r1 = target_resistor*2
+    r2 = target_resistor*2
     return convert_resistor_to_string(r1), convert_resistor_to_string(r2)
 
 def read_data(serial_no, data):
@@ -34,8 +34,8 @@ def read_data(serial_no, data):
         return "fail", "fail", "fail", "fail"
     bias = int(data.iloc[row_num,1])
     sf = int(data.iloc[row_num,2])
-    bias1, bias2 = calculate_resistors_in_parallel(bias)
-    sf1, sf2 = calculate_resistors_in_parallel(sf)
+    bias1, bias2 = calculate_resistors_in_parallel(bias*1000)
+    sf1, sf2 = calculate_resistors_in_parallel(sf*1000)
     return bias1, bias2, sf1, sf2
 
 def display_resistors(resistor_dict, axis):
@@ -217,30 +217,30 @@ class SBT_Window(QtWidgets.QMainWindow):
             if R27 == "fail":
                 settings.error_message(f"no data was found for serial number: {serial_no}, please confirm work order and serial number details are correct and the unit has been calibrated then try again")
                 return
-            resistors_dict['R27'] = R27*1000
-            resistors_dict['R28'] = R28*1000
-            resistors_dict['R25'] = R25*1000
-            resistors_dict['Runknown2'] = Runknown2*1000
+            resistors_dict['R27'] = R27
+            resistors_dict['R28'] = R28
+            resistors_dict['R25'] = R25
+            resistors_dict['Runknown2'] = Runknown2
         if axis >= 2:
             y_data = pandas.read_excel(file, sheet_name="Y Axis")
             R20, R21, R15, R18 = read_data(serial_no, pandas.DataFrame(y_data))
             if R20 == "fail":
                 settings.error_message(f"no data was found for serial number: {serial_no}, please confirm work order and serial number details are correct and the unit has been calibrated then try again")
                 return
-            resistors_dict['R20'] = R20*1000
-            resistors_dict['R21'] = R21*1000
-            resistors_dict['R15'] = R15*1000
-            resistors_dict['R18'] = R18*1000
+            resistors_dict['R20'] = R20
+            resistors_dict['R21'] = R21
+            resistors_dict['R15'] = R15
+            resistors_dict['R18'] = R18
         if axis >= 1: 
             x_data = pandas.read_excel(file, sheet_name="X Axis")
             R13, R14, R8, R11 = read_data(serial_no, pandas.DataFrame(x_data))
             if R13 == "fail":
                 settings.error_message(f"no data was found for serial number: {serial_no}, please confirm work order and serial number details are correct and the unit has been calibrated then try again")
                 return
-            resistors_dict['R13'] = R13*1000
-            resistors_dict['R14'] = R14*1000
-            resistors_dict['R8'] = R8*1000
-            resistors_dict['R11'] = R11*1000
+            resistors_dict['R13'] = R13
+            resistors_dict['R14'] = R14
+            resistors_dict['R8'] = R8
+            resistors_dict['R11'] = R11
         
         display_resistors(resistors_dict, axis)
         return
