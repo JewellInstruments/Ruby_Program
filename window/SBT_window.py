@@ -41,13 +41,12 @@ def display_resistors(resistor_dict, axis):
     print(f"list of resistors: {resistor_dict}")
     dialog = QtWidgets.QDialog()
     lay = QtWidgets.QVBoxLayout(dialog)
-    label = QtWidgets.QLabel()
+    label = QtWidgets.QLabel(f"list of resistors: {resistor_dict}")
     lay.addWidget(label)
     pixmap = QtGui.QPixmap(os.path.join(picture_folder, pic))
     label.setPixmap(pixmap)
     dialog.exec_()
     #settings.error_message(f"Please install the following resistors: {resistor_dict}")
-
     return
 
 class BarcodeEntryPopup(QtWidgets.QDialog):
