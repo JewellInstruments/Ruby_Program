@@ -4,7 +4,7 @@ import os
 import keyring
 import system.settings as settings
 import system.api_calls as api_calls
-from PyQt5 import QtWidgets, uic
+from PyQt5 import QtWidgets, uic, QtGui
 import pandas
 
 def calculate_resistors_in_parallel(target_resistor):
@@ -30,9 +30,24 @@ def read_data(serial_no, data):
     sf1, sf2 = calculate_resistors_in_parallel(sf)
     return bias1, bias2, sf1, sf2
 
-def display_resistors(resistor_dict):
+def display_resistors(resistor_dict, axis):
+    picture_folder = os.path.join(settings.POWER_BASE, "SBT Install")
+    if axis == 1:
+        pic = "x_axis_sbt.png"
+    elif axis == 2:
+        pic = "xy_axis_sbt.png"
+    elif axis == 3:
+        pic = "xyz_axis_sbt.png"
     print(f"list of resistors: {resistor_dict}")
-    settings.error_message(f"Please install the following resistors: {resistor_dict}")
+    dialog = QtWidgets.QDialog()
+    lay = QtWidgets.QVBoxLayout(dialog)
+    label = QtWidgets.QLabel()
+    lay.addWidget(label)
+    pixmap = QtGui.QPixmap(os.path.join(picture_folder, pic))
+    label.setPixmap(pixmap)
+    dialog.exec_()
+    #settings.error_message(f"Please install the following resistors: {resistor_dict}")
+
     return
 
 class BarcodeEntryPopup(QtWidgets.QDialog):
