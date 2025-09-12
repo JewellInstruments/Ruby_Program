@@ -50,7 +50,7 @@ def display_resistors(resistor_dict, axis):
     image_path = os.path.join(picture_folder, pic)
 
     #do text stuff
-    text = "Install the following resistors:\n"
+    text = ""
     i=0
     j = 0
     print(f"list of resistors: {resistor_dict}")
@@ -77,7 +77,7 @@ def display_resistors(resistor_dict, axis):
 class ImagePopup(QtWidgets.QDialog):
     def __init__(self, image_path, text, parent=None):
         super().__init__(parent)
-        self.setWindowTitle("Install SBT Resistors")
+        self.setWindowTitle("Install the following resistors:")
         self.setFixedWidth(1600)
         self.setFixedHeight(950)
         font = QtGui.QFont()
