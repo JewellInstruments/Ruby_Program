@@ -39,15 +39,33 @@ def display_resistors(resistor_dict, axis):
     elif axis == 3:
         pic = "xyz_axis_sbt.png"
     print(f"list of resistors: {resistor_dict}")
-    dialog = QtWidgets.QDialog()
-    lay = QtWidgets.QVBoxLayout(dialog)
-    label = QtWidgets.QLabel(f"list of resistors: {resistor_dict}")
-    lay.addWidget(label)
-    pixmap = QtGui.QPixmap(os.path.join(picture_folder, pic))
-    label.setPixmap(pixmap)
-    dialog.exec_()
-    #settings.error_message(f"Please install the following resistors: {resistor_dict}")
+    image_path = os.path.join(picture_folder, pic)
+    text = f"install the following resistors: {resistor_dict}"
+    popup = ImagePopup(image_path, text)
+    popup.exec_()
     return
+
+class ImagePopup(QtWidgets.QDialog):
+    def __init__(self, image_path, text, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle("Install SBT Resistors")
+
+        # Create a layout
+        layout = QtWidgets.QVBoxLayout()
+
+        # Add image
+        image_label = QtWidgets.QLabel(self)
+        pixmap = QtGui.QPixmap(image_path)
+        image_label.setPixmap(pixmap)
+        image_label.setScaledContents(True)  # Scale image to fit the label
+        layout.addWidget(image_label)
+
+        # Add text
+        text_label = QtWidgets.QLabel(text, self)
+        layout.addWidget(text_label)
+
+        # Set layout
+        self.setLayout(layout)
 
 class BarcodeEntryPopup(QtWidgets.QDialog):
     def __init__(self, parent=None):
