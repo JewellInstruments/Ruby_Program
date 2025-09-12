@@ -31,6 +31,7 @@ def read_data(serial_no, data):
     return bias1, bias2, sf1, sf2
 
 def display_resistors(resistor_dict, axis):
+    #do image stuff
     picture_folder = os.path.join(settings.POWER_BASE, "SBT Install")
     if axis == 1:
         pic = "x_axis_sbt.png"
@@ -38,9 +39,18 @@ def display_resistors(resistor_dict, axis):
         pic = "xy_axis_sbt.png"
     elif axis == 3:
         pic = "xyz_axis_sbt.png"
-    print(f"list of resistors: {resistor_dict}")
     image_path = os.path.join(picture_folder, pic)
-    text = f"install the following resistors: {resistor_dict}"
+
+    #do text stuff
+    text = "install the following resistors:"
+    print(f"list of resistors: {resistor_dict}")
+    for key, value in resistor_dict.items():
+        print(f"key: {key}, value: {value}")
+        resistor = f"On {key} install a {value} resistor \n"
+        text = text + resistor
+    print(text)
+
+    #display popup
     popup = ImagePopup(image_path, text)
     popup.exec_()
     return
@@ -50,7 +60,7 @@ class ImagePopup(QtWidgets.QDialog):
         super().__init__(parent)
         self.setWindowTitle("Install SBT Resistors")
         self.setFixedWidth(1100)
-        self.setFixedHeight(1000)
+        self.setFixedHeight(900)
 
         # Create a layout
         layout = QtWidgets.QVBoxLayout()
@@ -168,7 +178,7 @@ class SBT_Window(QtWidgets.QMainWindow):
                     settings.error_message("Failed to find work order, work order will not be overwritten")
         desc = settings.ruby_conversion_chart[settings.work_order_part_no.strip()]
         description = desc.split("-")
-        print(f"description: {description}")
+        #print(f"description: {description}")
         if description == ['']:
             settings.error_message("You have not selected an option")
             return 
@@ -191,30 +201,30 @@ class SBT_Window(QtWidgets.QMainWindow):
             if R27 == "fail":
                 settings.error_message(f"no data was found for serial number: {serial_no}, please confirm work order and serial number details are correct and the unit has been calibrated then try again")
                 return
-            resistors_dict['R27'] = R27
-            resistors_dict['R28'] = R28
-            resistors_dict['R25'] = R25
-            resistors_dict['Runknown2'] = Runknown2
+            resistors_dict['R27'] = R27*1000
+            resistors_dict['R28'] = R28*1000
+            resistors_dict['R25'] = R25*1000
+            resistors_dict['Runknown2'] = Runknown2*1000
         if axis >= 2:
             y_data = pandas.read_excel(file, sheet_name="Y Axis")
             R20, R21, R15, R18 = read_data(serial_no, pandas.DataFrame(y_data))
             if R20 == "fail":
                 settings.error_message(f"no data was found for serial number: {serial_no}, please confirm work order and serial number details are correct and the unit has been calibrated then try again")
                 return
-            resistors_dict['R20'] = R20
-            resistors_dict['R21'] = R21
-            resistors_dict['R15'] = R15
-            resistors_dict['R18'] = R18
+            resistors_dict['R20'] = R20*1000
+            resistors_dict['R21'] = R21*1000
+            resistors_dict['R15'] = R15*1000
+            resistors_dict['R18'] = R18*1000
         if axis >= 1: 
             x_data = pandas.read_excel(file, sheet_name="X Axis")
             R13, R14, R8, R11 = read_data(serial_no, pandas.DataFrame(x_data))
             if R13 == "fail":
                 settings.error_message(f"no data was found for serial number: {serial_no}, please confirm work order and serial number details are correct and the unit has been calibrated then try again")
                 return
-            resistors_dict['R13'] = R13
-            resistors_dict['R14'] = R14
-            resistors_dict['R8'] = R8
-            resistors_dict['R11'] = R11
+            resistors_dict['R13'] = R13*1000
+            resistors_dict['R14'] = R14*1000
+            resistors_dict['R8'] = R8*1000
+            resistors_dict['R11'] = R11*1000
         
         display_resistors(resistors_dict, axis)
         return
