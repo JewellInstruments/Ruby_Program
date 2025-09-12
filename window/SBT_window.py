@@ -20,13 +20,14 @@ def convert_resistor_to_string(resistor):
     return (res + " " + ending)
 
 def calculate_resistors_in_parallel(target_resistor):
+    print(f"target_resistacne: {target_resistor}")
     best_diff = 10000000
     r1 = 0
     r2 = 0
     for R1 in range(len(settings.available_resistors) + 1):
-        if R1 > target_resistor-1:
+        if R1 >= target_resistor:
             for R2 in range(len(settings.available_resistors) + 1):
-                if R2 > target_resistor-1:
+                if R2 >= target_resistor:
                     eq_resistance = 1/((1/R1)+(1/R2))
                     dif_resistance = eq_resistance - target_resistor
                     if dif_resistance < best_diff:
