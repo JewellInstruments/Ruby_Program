@@ -7,10 +7,18 @@ import system.api_calls as api_calls
 from PyQt5 import QtWidgets, uic, QtGui
 import pandas
 
+def convert_resistor_to_string(resistor):
+    ending = "Ohm"
+    if resistor > 1000:
+        resistor = resistor/1000
+        ending = "K"
+    res = str(resistor)
+    return (res + ending)
+
 def calculate_resistors_in_parallel(target_resistor):
     r1 = 0
     r2 = 0
-    return r1, r2
+    return convert_resistor_to_string(r1), convert_resistor_to_string(r2)
 
 def read_data(serial_no, data):
     bias = 0
