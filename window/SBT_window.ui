@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1238</width>
-    <height>406</height>
+    <height>414</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -29,7 +29,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Please enter the user information</string>
+     <string>Please enter the unit information</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -39,7 +39,7 @@
     <property name="geometry">
      <rect>
       <x>370</x>
-      <y>290</y>
+      <y>300</y>
       <width>171</width>
       <height>61</height>
      </rect>
@@ -60,7 +60,7 @@
     <property name="geometry">
      <rect>
       <x>550</x>
-      <y>290</y>
+      <y>300</y>
       <width>171</width>
       <height>61</height>
      </rect>
@@ -81,7 +81,7 @@
     <property name="geometry">
      <rect>
       <x>730</x>
-      <y>290</y>
+      <y>300</y>
       <width>171</width>
       <height>61</height>
      </rect>
@@ -163,12 +163,12 @@
    </widget>
    <widget class="QLineEdit" name="work_order_le">
     <property name="enabled">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
       <x>380</x>
-      <y>210</y>
+      <y>220</y>
       <width>511</width>
       <height>41</height>
      </rect>
@@ -184,7 +184,7 @@
    </widget>
    <widget class="QPushButton" name="wo_barcode_pb">
     <property name="enabled">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
@@ -208,12 +208,12 @@
    </widget>
    <widget class="QLabel" name="label_15">
     <property name="enabled">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>210</y>
+      <y>220</y>
       <width>331</width>
       <height>41</height>
      </rect>
