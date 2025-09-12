@@ -10,7 +10,7 @@ import pandas
 def calculate_resistors_in_parallel(target_resistor):
     r1 = 0
     r2 = 0
-    return str(r1), str(r2)
+    return r1, r2
 
 def read_data(serial_no, data):
     bias = 0
