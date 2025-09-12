@@ -52,16 +52,20 @@ def display_resistors(resistor_dict, axis):
     #do text stuff
     text = "Install the following resistors:\n"
     i=0
+    j = 0
     print(f"list of resistors: {resistor_dict}")
     for key, value in resistor_dict.items():
+        j +=1
         print(f"key: {key}, value: {value}")
-        if i < 3:
-            resistor = f"On {key} install a {value} resistor      "
+        resistor = f"On {key} install a {value} resistor"
+        ending = "\n"
+        if j == len(resistor_dict):
+            ending = ""
+        elif i < 3:
+            ending = "      "
             i+=1
-        elif i >= 3:
-            resistor = f"On {key} install a {value} resistor\n"
-            i = 0
-        text = text + resistor
+
+        text = text + resistor + ending
 
     #display popup
     popup = ImagePopup(image_path, text)
