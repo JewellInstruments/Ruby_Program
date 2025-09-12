@@ -10,15 +10,27 @@ import pandas
 
 def convert_resistor_to_string(resistor):
     ending = "Ohm"
-    if resistor > 1000:
+    if resistor > 1000000:
+        resistor = resistor/1000000
+        ending = "M"
+    elif resistor > 1000:
         resistor = resistor/1000
         ending = "K"
     res = str(resistor)
     return (res + " " + ending)
 
 def calculate_resistors_in_parallel(target_resistor):
-    r1 = target_resistor*2
-    r2 = target_resistor*2
+    best_diff = 10000000
+    r1 = 0
+    r2 = 0
+    for R1 in range(len(settings.available_resistors) + 1):
+        for R2 in range(len(settings.available_resistors) + 1):
+            eq_resistance = 1/((1/R1)+(1/R2))
+            dif_resistance = eq_resistance - target_resistor
+            if dif_resistance < best_diff:
+                best_diff = dif_resistance
+                r1 = R1
+                r2 = R2
     return convert_resistor_to_string(r1), convert_resistor_to_string(r2)
 
 def read_data(serial_no, data):
@@ -84,7 +96,7 @@ class ImagePopup(QtWidgets.QDialog):
         font = QtGui.QFont()
         font.setPointSize(20)
         self.setFont(font)
-        
+
         # Create a layout
         layout = QtWidgets.QVBoxLayout()
 

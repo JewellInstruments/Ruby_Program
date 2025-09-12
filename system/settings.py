@@ -267,6 +267,11 @@ ruby_conversion_chart = {
     "02550444-2439" : "JMHI-200-4-L-90-V"
 }
 
+resistor_tolerance = 0.01
+available_resistors = [
+
+]
+
 username_table = 'usernames'
 
 password_table = 'passwords'
