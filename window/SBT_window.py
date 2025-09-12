@@ -15,10 +15,9 @@ def calculate_resistors_in_parallel(target_resistor):
 def read_data(serial_no, data):
     bias = 0
     sf = 0
-    try:
-        filtered_data = data[data["Serial number"] == serial_no].head()
-    except:
-        filtered_data = data[data["SN"] == serial_no].head()
+
+    filtered_data = data[data["Serial Number"] == serial_no].head()
+
     row = filtered_data.tail(1)
     try:
         row_num = int(row.index[0])
@@ -154,23 +153,17 @@ class SBT_Window(QtWidgets.QMainWindow):
         axis = int(description[1][0])
         resistors_dict = {}
         if axis == 3:
-            try:
-                z_data = pandas.read_excel(file, sheet_name="Z axis")
-            except:
-                z_data = pandas.read_excel(file, sheet_name="Z Axis")
-            R27, R28, Runkown1, Runknown2 = read_data(serial_no, pandas.DataFrame(z_data))
+            z_data = pandas.read_excel(file, sheet_name="Z Axis")
+            R27, R28, R25, Runknown2 = read_data(serial_no, pandas.DataFrame(z_data))
             if R27 == "fail":
                 settings.error_message(f"no data was found for serial number: {serial_no}, please confirm work order and serial number details are correct and the unit has been calibrated then try again")
                 return
             resistors_dict['R27'] = R27
             resistors_dict['R28'] = R28
-            resistors_dict['Runkown1'] = Runkown1
+            resistors_dict['R25'] = R25
             resistors_dict['Runknown2'] = Runknown2
         if axis >= 2:
-            try:
-                y_data = pandas.read_excel(file, sheet_name="Y axis")
-            except:
-                y_data = pandas.read_excel(file, sheet_name="Y Axis")
+            y_data = pandas.read_excel(file, sheet_name="Y Axis")
             R20, R21, R15, R18 = read_data(serial_no, pandas.DataFrame(y_data))
             if R20 == "fail":
                 settings.error_message(f"no data was found for serial number: {serial_no}, please confirm work order and serial number details are correct and the unit has been calibrated then try again")
@@ -180,10 +173,7 @@ class SBT_Window(QtWidgets.QMainWindow):
             resistors_dict['R15'] = R15
             resistors_dict['R18'] = R18
         if axis >= 1: 
-            try:
-                x_data = pandas.read_excel(file, sheet_name="X axis")
-            except:
-                x_data = pandas.read_excel(file, sheet_name="X Axis")
+            x_data = pandas.read_excel(file, sheet_name="X Axis")
             R13, R14, R8, R11 = read_data(serial_no, pandas.DataFrame(x_data))
             if R13 == "fail":
                 settings.error_message(f"no data was found for serial number: {serial_no}, please confirm work order and serial number details are correct and the unit has been calibrated then try again")
