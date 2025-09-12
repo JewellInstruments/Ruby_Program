@@ -8,6 +8,7 @@ from PyQt5 import QtWidgets, uic
 import pandas
 
 def calculate_resistors_in_parallel(target_resistor):
+    
     r1 = 0
     r2 = 0
     return str(r1), str(r2)
@@ -23,23 +24,26 @@ def read_data(serial_no, data):
         #row_index = data[data["SN"] == serial_no].index[0]
     row = filtered_data.tail(1)
     #print(f"row2: {row_index} of type {type(row_index)}")
-    
-    row3 = int(row.index[0])
+    try:
+        row_num = int(row.index[0])
+    except:
+        print(f"no data was found for serial number: {serial_no}, please confirm work order and serial number details are correct and the unit has been calibrated then try again")
+        return "fail", "fail", "fail", "fail"
     #print(f"row3: {row3} of type {type(row3)}")
     #row2 = max(row_index)
     #at this point I have the right row and is it of type dataframe
-    print(f"row: {row}")
+    #print(f"row: {row}")
     #B = data.iloc[row2,1]
     #S = data.iloc[row2,2]
-    B = int(data.iloc[row3,1])
-    S = int(data.iloc[row3,2])
+    bias = int(data.iloc[row_num,1])
+    sf = int(data.iloc[row_num,2])
     
-    BIAS = row.iloc[:,1]
-    SF = row.iloc[:,2]
-    print(f"Bias resistor: {BIAS} of type: {type(BIAS)}")
-    print(f"Bias resistor 2: {B} of type: {type(B)}")
-    print(f"SF resistor: {SF} of type: {type(S)}")
-    print(f"SF resistor 2: {S} of type: {type(S)}")
+    #BIAS = row.iloc[:,1]
+    #SF = row.iloc[:,2]
+    #print(f"Bias resistor: {BIAS} of type: {type(BIAS)}")
+    #print(f"Bias resistor 2: {B} of type: {type(B)}")
+    #print(f"SF resistor: {SF} of type: {type(S)}")
+    #print(f"SF resistor 2: {S} of type: {type(S)}")
     
     #CAM THIS IS WHERE YOU LEFT OFF 9/11/2025 @ 4:22pm the above needs to be cleaned up but "B" and "S" are the values of the bias and sf resistors as ints and are ready to be passed into the calculate_resistors_function!
     bias1, bias2 = calculate_resistors_in_parallel(bias)
@@ -47,8 +51,8 @@ def read_data(serial_no, data):
     
     return bias1, bias2, sf1, sf2
 
-def display_resistors(list):
-    print(f"list of resistors: {list}")
+def display_resistors(resistor_dict):
+    print(f"list of resistors: {resistor_dict}")
     return
 
 class BarcodeEntryPopup(QtWidgets.QDialog):
@@ -79,8 +83,11 @@ class SBT_Window(QtWidgets.QMainWindow):
 
         # PUSH BUTTONS
         ############################################################################
-        self.sn_barcode_pb = self.findChild(QtWidgets.QPushButton, "sn_barcode_pb")
-        self.sn_barcode_pb.clicked.connect(self.barcode)
+        self.sn_barcode_sn_pb = self.findChild(QtWidgets.QPushButton, "sn_barcode_pb")
+        self.sn_barcode_sn_pb.clicked.connect(self.barcode_sn)
+
+        self.sn_barcode_wo_pb = self.findChild(QtWidgets.QPushButton, "wo_barcode_pb")
+        self.sn_barcode_wo_pb.clicked.connect(self.barcode_wo)
         
         self.start_pb = self.findChild(QtWidgets.QPushButton, "start_pb")
         self.start_pb.clicked.connect(self.start)
@@ -95,12 +102,13 @@ class SBT_Window(QtWidgets.QMainWindow):
         # LINE EDITS:
         ############################################################################
         self.serial_number_le = self.findChild(QtWidgets.QLineEdit, "serial_number_le")
+        self.work_order_le = self.findChild(QtWidgets.QLineEdit, "work_order_le")
         ############################################################################
         self.show()
 
 
 
-    def barcode(self):
+    def barcode_sn(self):
         """Allows the user to scan their keycard to log in if they have logged in once before
         """
         dialog = BarcodeEntryPopup(self)
@@ -108,10 +116,27 @@ class SBT_Window(QtWidgets.QMainWindow):
             response = dialog.barcode_value.text()
             matrix = response.split(",")
             desc = matrix[1]
-            #seperate the matrix data by comma
             logging.info(f"The user scanned the barcode containing: {response} as the user info")
             logging.info(f"The scanned response resulted in the following discription: {desc}")
         self.serial_number_le.setText(desc)
+        return
+    
+    def barcode_wo(self):
+        """Allows the user to scan a barcode on a production floor traveler to get the work order
+        """
+        dialog = BarcodeEntryPopup(self)
+        if dialog.exec_():
+            response = dialog.barcode_value.text()
+            if response == "":
+                return
+            else:
+                try: 
+                    response = response[1:].strip()
+                    logging.info(f"The user scanned the barcode containing: {response} as the work order info")
+                    self.work_order_le.setText(response)
+                except Exception as e:
+                    print(f"an unknown error: {e} has occured") 
+                    logging.info(f"an unknown error: {e} has occured")
         return
     
 
@@ -120,6 +145,14 @@ class SBT_Window(QtWidgets.QMainWindow):
         This function checks the provided login information and if true passes the entered info to the next window
         """
         logging.info("SBT start button pushed")
+        if self.work_order_le != "":
+            if self.work_order_le.text() != '':
+                try:
+                    settings.work_order, sales_order, customer, settings.work_order_part_no, settings.qty = api_calls.get_work_order(self.work_order_le.text())
+                    logging.info(f"workorder: {settings.work_order} found")
+                except Exception as e:
+                    logging.info(f"login_window.py Error: {e}")
+                    settings.error_message("Failed to find work order, work order will not be overwritten")
         desc = settings.ruby_conversion_chart[settings.work_order_part_no.strip()]
         description = desc.split("-")
         print(f"description: {description}")
@@ -138,36 +171,39 @@ class SBT_Window(QtWidgets.QMainWindow):
             return
         serial_no = str(self.serial_number_le.text())
         axis = int(description[1][0])
-        resistors_list = []
+        resistors_dict = {}
         if axis == 3:
             z_data = pandas.read_excel(file, sheet_name="Z axis")
             R27, R28, Runkown1, Runknown2 = read_data(serial_no, pandas.DataFrame(z_data))
-            resistors_list.append(R27)
-            resistors_list.append(R28)
-            resistors_list.append(Runkown1)
-            resistors_list.append(Runknown2)
+            if R27 == "fail":
+                settings.error_message(f"no data was found for serial number: {serial_no}, please confirm work order and serial number details are correct and the unit has been calibrated then try again")
+                return
+            resistors_dict['R27'] = R27
+            resistors_dict['R28'] = R28
+            resistors_dict['Runkown1'] = Runkown1
+            resistors_dict['Runknown2'] = Runknown2
         if axis >= 2:
             y_data = pandas.read_excel(file, sheet_name="Y axis")
             R20, R21, R15, R18 = read_data(serial_no, pandas.DataFrame(y_data))
-            resistors_list.append(R20)
-            resistors_list.append(R21)
-            resistors_list.append(R15)
-            resistors_list.append(R18)
+            if R20 == "fail":
+                settings.error_message(f"no data was found for serial number: {serial_no}, please confirm work order and serial number details are correct and the unit has been calibrated then try again")
+                return
+            resistors_dict['R20'] = R20
+            resistors_dict['R21'] = R21
+            resistors_dict['R15'] = R15
+            resistors_dict['R18'] = R18
         if axis >= 1: 
             x_data = pandas.read_excel(file, sheet_name="X axis")
             R13, R14, R8, R11 = read_data(serial_no, pandas.DataFrame(x_data))
-            resistors_list.append(R13)
-            resistors_list.append(R14)
-            resistors_list.append(R8)
-            resistors_list.append(R11)
+            if R13 == "fail":
+                settings.error_message(f"no data was found for serial number: {serial_no}, please confirm work order and serial number details are correct and the unit has been calibrated then try again")
+                return
+            resistors_dict['R13'] = R13
+            resistors_dict['R14'] = R14
+            resistors_dict['R8'] = R8
+            resistors_dict['R11'] = R11
         
-        display_resistors(resistors_list)
-        
-        
-        
-
-        
-
+        display_resistors(resistors_dict)
         return
 
             
