@@ -47,14 +47,13 @@ def display_resistors(resistor_dict, axis):
     print(f"list of resistors: {resistor_dict}")
     for key, value in resistor_dict.items():
         print(f"key: {key}, value: {value}")
-        if i < 2:
-            resistor = f"On {key} install a {value} resistor        "
+        if i < 3:
+            resistor = f"On {key} install a {value} resistor      "
             i+=1
-        elif i >= 2:
+        elif i >= 3:
             resistor = f"On {key} install a {value} resistor\n"
             i = 0
         text = text + resistor
-    print(text)
 
     #display popup
     popup = ImagePopup(image_path, text)
@@ -65,10 +64,10 @@ class ImagePopup(QtWidgets.QDialog):
     def __init__(self, image_path, text, parent=None):
         super().__init__(parent)
         self.setWindowTitle("Install SBT Resistors")
-        self.setFixedWidth(1400)
+        self.setFixedWidth(1600)
         self.setFixedHeight(950)
         font = QtGui.QFont()
-        font.setPointSize(20)
+        font.setPointSize(22)
         self.setFont(font)
 
         # Create a layout
