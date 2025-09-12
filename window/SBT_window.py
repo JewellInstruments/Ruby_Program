@@ -42,11 +42,17 @@ def display_resistors(resistor_dict, axis):
     image_path = os.path.join(picture_folder, pic)
 
     #do text stuff
-    text = "install the following resistors:"
+    text = "install the following resistors:\n"
+    i=0
     print(f"list of resistors: {resistor_dict}")
     for key, value in resistor_dict.items():
         print(f"key: {key}, value: {value}")
-        resistor = f"On {key} install a {value} resistor \n"
+        if i == 0:
+            resistor = f"On {key} install a {value} resistor                    "
+            i = 1
+        if i == 1:
+            resistor = f"On {key} install a {value} resistor\n"
+            i = 0
         text = text + resistor
     print(text)
 
