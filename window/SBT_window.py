@@ -49,7 +49,7 @@ class ImagePopup(QtWidgets.QDialog):
     def __init__(self, image_path, text, parent=None):
         super().__init__(parent)
         self.setWindowTitle("Install SBT Resistors")
-        self.setFixedWidth(1500)
+        self.setFixedWidth(1100)
         self.setFixedHeight(1000)
 
         # Create a layout
