@@ -51,16 +51,19 @@ class ImagePopup(QtWidgets.QDialog):
         self.setWindowTitle("Install SBT Resistors")
         self.setFixedWidth(600)
         self.setFixedHeight(600)
+        
         # Create a layout
         layout = QtWidgets.QVBoxLayout()
+
         # Add image
         image_label = QtWidgets.QLabel(self)
         pixmap = QtGui.QPixmap(image_path)
         image_label.setPixmap(pixmap)
         layout.addWidget(image_label)
+
         # Add text
-        #text_label = QtWidgets.QLabel(text, self)
-        #layout.addWidget(text_label)
+        text_label = QtWidgets.QLabel(text, self)
+        layout.addWidget(text_label)
 
         # Set layout
         self.setLayout(layout)
