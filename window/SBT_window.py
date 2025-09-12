@@ -5,6 +5,7 @@ import keyring
 import system.settings as settings
 import system.api_calls as api_calls
 from PyQt5 import QtWidgets, uic, QtGui
+from PyQt5.QtCore import Qt
 import pandas
 
 def convert_resistor_to_string(resistor):
@@ -78,12 +79,12 @@ class ImagePopup(QtWidgets.QDialog):
     def __init__(self, image_path, text, parent=None):
         super().__init__(parent)
         self.setWindowTitle("Install the following resistors:")
-        self.setFixedWidth(1600)
+        self.setFixedWidth(1800)
         self.setFixedHeight(950)
         font = QtGui.QFont()
         font.setPointSize(20)
         self.setFont(font)
-
+        
         # Create a layout
         layout = QtWidgets.QVBoxLayout()
 
@@ -91,7 +92,7 @@ class ImagePopup(QtWidgets.QDialog):
         image_label = QtWidgets.QLabel(self)
         pixmap = QtGui.QPixmap(image_path)
         image_label.setPixmap(pixmap)
-        layout.addWidget(image_label)
+        layout.addWidget(image_label, alignment=Qt.AlignCenter)
 
         # Add text
         text_label = QtWidgets.QLabel(text, self)
