@@ -8,7 +8,6 @@ from PyQt5 import QtWidgets, uic
 import pandas
 
 def calculate_resistors_in_parallel(target_resistor):
-    
     r1 = 0
     r2 = 0
     return str(r1), str(r2)
@@ -18,41 +17,23 @@ def read_data(serial_no, data):
     sf = 0
     try:
         filtered_data = data[data["Serial number"] == serial_no].head()
-        #row_index = data[data["Serial number"] == serial_no].index[0]
     except:
         filtered_data = data[data["SN"] == serial_no].head()
-        #row_index = data[data["SN"] == serial_no].index[0]
     row = filtered_data.tail(1)
-    #print(f"row2: {row_index} of type {type(row_index)}")
     try:
         row_num = int(row.index[0])
     except:
         print(f"no data was found for serial number: {serial_no}, please confirm work order and serial number details are correct and the unit has been calibrated then try again")
         return "fail", "fail", "fail", "fail"
-    #print(f"row3: {row3} of type {type(row3)}")
-    #row2 = max(row_index)
-    #at this point I have the right row and is it of type dataframe
-    #print(f"row: {row}")
-    #B = data.iloc[row2,1]
-    #S = data.iloc[row2,2]
     bias = int(data.iloc[row_num,1])
     sf = int(data.iloc[row_num,2])
-    
-    #BIAS = row.iloc[:,1]
-    #SF = row.iloc[:,2]
-    #print(f"Bias resistor: {BIAS} of type: {type(BIAS)}")
-    #print(f"Bias resistor 2: {B} of type: {type(B)}")
-    #print(f"SF resistor: {SF} of type: {type(S)}")
-    #print(f"SF resistor 2: {S} of type: {type(S)}")
-    
-    #CAM THIS IS WHERE YOU LEFT OFF 9/11/2025 @ 4:22pm the above needs to be cleaned up but "B" and "S" are the values of the bias and sf resistors as ints and are ready to be passed into the calculate_resistors_function!
     bias1, bias2 = calculate_resistors_in_parallel(bias)
     sf1, sf2 = calculate_resistors_in_parallel(sf)
-    
     return bias1, bias2, sf1, sf2
 
 def display_resistors(resistor_dict):
     print(f"list of resistors: {resistor_dict}")
+    settings.error_message(f"Please install the following resistors: {resistor_dict}")
     return
 
 class BarcodeEntryPopup(QtWidgets.QDialog):
