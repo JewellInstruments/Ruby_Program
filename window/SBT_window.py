@@ -232,6 +232,8 @@ class SBT_Window(QtWidgets.QMainWindow):
         if self.work_order_le != "":
             if self.work_order_le.text() != '':
                 try:
+                    old_work_order = settings.work_order
+                    old_pn = settings.work_order_part_no
                     settings.work_order, sales_order, customer, settings.work_order_part_no, settings.qty = api_calls.get_work_order(self.work_order_le.text())
                     logging.info(f"workorder: {settings.work_order} found")
                 except Exception as e:
@@ -288,6 +290,10 @@ class SBT_Window(QtWidgets.QMainWindow):
             resistors_dict['R11'] = R11
         
         display_resistors(resistors_dict, axis)
+        if self.work_order_le != "":
+            if self.work_order_le.text() != '':
+                settings.work_order = old_work_order    
+                settings.work_order_part_no = old_pn
         return
 
             
