@@ -62,9 +62,7 @@ def calculate_resistors_in_parallel(target_resistor):
 def read_data(serial_no, data):
     bias = 0
     sf = 0
-
     filtered_data = data[data["Serial Number"] == serial_no].head()
-
     row = filtered_data.tail(1)
     try:
         row_num = int(row.index[0])
@@ -98,6 +96,7 @@ def display_resistors(resistor_dict, axis):
         print(f"key: {key}, value: {value}")
         resistor = f"On {key} install a {value} resistor"
         ending = "\n"
+        
         if j == len(resistor_dict):
             ending = ""
         elif i < 3:
