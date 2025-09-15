@@ -36,7 +36,13 @@ def calculate_resistors_in_parallel(target_resistor):
         R1 = float(settings.available_resistors[i])
         #print(f"R1: {R1}")
         i+=1
-        if R1 >= target_resistor:
+        if R1 == target_resistor:
+            r1 = R1
+            r2 = 99999999999999999999999
+            best_diff = 0
+            best_eq = target_resistor
+            break
+        elif R1 >= target_resistor:
             for j in range(len(settings.available_resistors)):
                 R2 = float(settings.available_resistors[j])
                 #print(f"R2: {R2}")
@@ -51,10 +57,11 @@ def calculate_resistors_in_parallel(target_resistor):
                         r2 = R2
                         logging.info(f"The new best resistor combo is: R1 = {r1}, R2 = {r2}")
                         logging.info(f"This combo results in an eq_resistance of: {best_eq}, which is {best_diff} Ohms away from the target of: {target_resistor}")
+                        if best_diff == 0:
+                            break
     print("The best resistor combo is:")                    
     print("###############################################")
-    print(f"R1: {r1}")
-    print(f"R2: {r2}")
+    print(f"R1: {r1}\nR2: {r2}")
     print(f"target resistance: {target_resistor}")
     print(f"eq_resistance: {best_eq}")
     print(f"diff resistance: {best_diff}")
