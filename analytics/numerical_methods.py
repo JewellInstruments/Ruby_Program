@@ -9,6 +9,7 @@ from network import get_specs
 
 from analytics import linear_algebra
 from analytics import statistical_methods
+from analytics import conversion
 
 
 def compute_full_scale_output(data_max: float, data_min: float) -> float:
@@ -676,3 +677,52 @@ def convert_rpm_to_g(rpm: float) -> float:
         float: _description_
     """
     return 0
+
+
+def calculate_resistors_in_parallel(target_resistor):
+    logging.info(f"Finding the best combo of resistors that results in {target_resistor}")
+    #print(f"target_resistance: {target_resistor}")
+    best_diff = 10000000
+    r1 = 0
+    r2 = 0
+    i = 0
+    j = 0
+    for i in range(len(settings.available_resistors)):
+        R1 = float(settings.available_resistors[i])
+        #print(f"R1: {R1}")
+        i+=1
+        if R1 == target_resistor:
+            r1 = R1
+            r2 = 99999999999999999999999
+            best_diff = 0
+            best_eq = target_resistor
+            break
+        elif R1 >= target_resistor:
+            for j in range(len(settings.available_resistors)):
+                R2 = float(settings.available_resistors[j])
+                #print(f"R2: {R2}")
+                j +=1
+                if R2 >= target_resistor:
+                    eq_resistance = 1/((1/R1)+(1/R2))
+                    dif_resistance = abs(eq_resistance - target_resistor)
+                    if dif_resistance < best_diff:
+                        best_diff = dif_resistance
+                        best_eq = eq_resistance
+                        r1 = R1
+                        r2 = R2
+                        logging.info(f"The new best resistor combo is: R1 = {r1}, R2 = {r2}")
+                        logging.info(f"This combo results in an eq_resistance of: {best_eq}, which is {best_diff} Ohms away from the target of: {target_resistor}")
+                        if best_diff == 0:
+                            break
+    print("The best resistor combo is:")                    
+    print("###############################################")
+    print(f"R1: {r1}\nR2: {r2}")
+    print(f"target resistance: {target_resistor}")
+    print(f"eq_resistance: {best_eq}")
+    print(f"diff resistance: {best_diff}")
+    print("###############################################")
+    logging.info(f"The best resistor combo is: R1 = {r1}, R2 = {r2}")
+    logging.info(f"This combo results in an eq_resistance of: {best_eq}, which is {best_diff} Ohms away from the target of: {target_resistor}")
+    return conversion.convert_resistor_to_string(r1), conversion.convert_resistor_to_string(r2)
+
+

@@ -1,4 +1,5 @@
 import math
+import logging
 from typing import Union
 
 
@@ -88,3 +89,22 @@ def convert_deg_to_gs(array: list, moa: float = 0.0) -> list:
         return [math.sin(math.radians(i - moa)) for i in array]
     else:
         return math.sin(math.radians(array - moa))
+
+def convert_resistor_to_string(resistor):
+    ending = "Ohm"
+    if resistor > 20000000:
+        ending = ""
+    elif resistor > 1000000:
+        resistor = resistor/1000000
+        ending = "M"
+    elif resistor > 1000:
+        resistor = resistor/1000
+        ending = "K"
+    if resistor > 20000000:
+        res = "DNP"
+    else:
+        res = str(resistor)
+    logging.info(f"Resistor {resistor} converted to {res}")
+    return (res + " " + ending)
+
+
