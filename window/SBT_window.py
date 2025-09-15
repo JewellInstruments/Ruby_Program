@@ -36,12 +36,14 @@ def calculate_resistors_in_parallel(target_resistor):
                 print(f"R2: {R2}")
                 j +=1
                 if R2 >= target_resistor:
-                    eq_resistance = 1/((1/int(R1))+(1/int(R2)))
+                    eq_resistance = 1/((1/R1)+(1/R2))
                     dif_resistance = eq_resistance - target_resistor
-                    print(f"R1: {R1}")
-                    print(f"R2: {R2}")
-                    print(f"diff resistance: {dif_resistance}")
                     if dif_resistance < best_diff:
+                        print(f"R1: {R1}")
+                        print(f"R2: {R2}")
+                        print(f"target resistance: {target_resistor}")
+                        print(f"eq_resistance: {eq_resistance}")
+                        print(f"diff resistance: {dif_resistance}")
                         best_diff = dif_resistance
                         r1 = R1
                         r2 = R2
