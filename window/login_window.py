@@ -2,8 +2,8 @@ import sys
 import logging
 import os
 import keyring
-import system.settings as settings
-import system.api_calls as api_calls
+from system import settings
+from network import api_calls
 from PyQt5 import QtWidgets, uic
 
 def get_info_from_barcode(self) -> str:

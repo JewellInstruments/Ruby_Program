@@ -3,7 +3,7 @@ import os
 import datetime
 import socket
 import sys
-import system.log_config as log_config
+from system import log_config
 from PyQt5.QtWidgets import QMessageBox
 
 #environ variables

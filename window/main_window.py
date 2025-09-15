@@ -4,8 +4,8 @@ import os
 import datetime
 import time
 import shutil
-import system.api_calls as api_calls
-import system.settings as settings
+from network import api_calls
+from system import settings
 from PyQt5 import QtWidgets, uic
 from window import SBT_window
 

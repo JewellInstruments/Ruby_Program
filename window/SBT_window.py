@@ -1,11 +1,12 @@
 import sys
 import logging
 import os
-import system.settings as settings
-import system.api_calls as api_calls
+import pandas
+from system import settings
+from network import api_calls
 from PyQt5 import QtWidgets, uic, QtGui
 from PyQt5.QtCore import Qt
-import pandas
+
 
 def convert_resistor_to_string(resistor):
     ending = "Ohm"
