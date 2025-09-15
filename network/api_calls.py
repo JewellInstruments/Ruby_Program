@@ -434,7 +434,7 @@ def get_work_order(work_order: str) -> tuple[str, str, str]:
             work_order_data["fjobno"],
             work_order_data["fsono"],
             work_order_data["fcompany"],
-            work_order_data["fpartno"],
+            work_order_data["fpartno"].strip(),
             work_order_data["fquantity"]
         )
 

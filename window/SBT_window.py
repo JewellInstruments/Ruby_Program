@@ -199,7 +199,7 @@ class SBT_Window(QtWidgets.QMainWindow):
         elif settings.work_order == '':
             settings.error_message("You have not entered a work order, a work order is required for this action")
             return
-        desc = settings.ruby_conversion_chart[settings.work_order_part_no.strip()]
+        desc = settings.ruby_conversion_chart[settings.work_order_part_no]
         description = desc.split("-")
         if description == ['']:
             settings.error_message("You have not selected an option")
