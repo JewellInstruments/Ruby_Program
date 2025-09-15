@@ -90,6 +90,7 @@ def convert_deg_to_gs(array: list, moa: float = 0.0) -> list:
     else:
         return math.sin(math.radians(array - moa))
 
+
 def convert_resistor_to_string(resistor):
     ending = "Ohm"
     if resistor > 20000000:
@@ -108,3 +109,11 @@ def convert_resistor_to_string(resistor):
     return (res + " " + ending)
 
 
+def convert_axis_num_to_long_string(specs):
+    if specs.axes_no == 1:
+        axis_num = 'Single'
+    elif specs.axes_no == 2:
+        axis_num = 'Dual'
+    elif specs.axes_no == 3:
+        axis_num = 'Tri'
+    return axis_num

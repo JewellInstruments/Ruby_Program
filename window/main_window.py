@@ -4,10 +4,12 @@ import os
 import datetime
 import time
 import shutil
+from network import get_specs
 from network import api_calls
 from system import settings
 from PyQt5 import QtWidgets, uic
 from window import SBT_window
+
 
 def parse_info(self) -> tuple [list, str]:
     """Takes the info entered by the user and determins the model number of the unit 
@@ -118,13 +120,17 @@ class Main_Window(QtWidgets.QMainWindow):
         ############################################################################
 
         #disable the program digital ruby option for analog units
-        description = settings.ruby_conversion_chart[settings.work_order_part_no.strip()]
-        if "JDS" not in description:
-            self.program_pb.setEnabled(False)
+        if settings.work_order_part_no != '':
+            specs = get_specs.mems_specs(settings.work_order_part_no)
+            description = specs.model_no
+            #description = settings.ruby_conversion_chart[settings.work_order_part_no.strip()]
+            if "JDS" not in description:
+                self.program_pb.setEnabled(False)
         self.show()
 
     def first_assy(self):
         """Opens the appropriate power point for assembling a unit of the specified model number"""
+        #specs = get_specs.mems_specs(self.part_number_le)
         desc, model_number = parse_info(self) #JMHI-200-1-L-30
         if desc == ['']:
             settings.error_message("You have not selected an option")
