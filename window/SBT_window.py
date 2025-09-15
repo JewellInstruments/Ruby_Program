@@ -25,9 +25,9 @@ def calculate_resistors_in_parallel(target_resistor):
     r1 = 0
     r2 = 0
     for R1 in range(len(settings.available_resistors) + 1):
-        if R1 >= target_resistor:
+        if int(R1) >= target_resistor:
             for R2 in range(len(settings.available_resistors) + 1):
-                if R2 >= target_resistor:
+                if int(R2) >= target_resistor:
                     eq_resistance = 1/((1/int(R1))+(1/int(R2)))
                     dif_resistance = eq_resistance - target_resistor
                     print(f"R1: {R1}")
