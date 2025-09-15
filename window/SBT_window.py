@@ -198,7 +198,7 @@ class SBT_Window(QtWidgets.QMainWindow):
         if dialog.exec_():
             response = dialog.barcode_value.text()
             matrix = response.split(",")
-            desc = matrix[1]
+            desc = matrix[2]
             logging.info(f"The user scanned the barcode containing: {response} as the user info")
             logging.info(f"The scanned response resulted in the following discription: {desc}")
         self.serial_number_le.setText(desc)
