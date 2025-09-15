@@ -45,7 +45,7 @@ def calculate_resistors_in_parallel(target_resistor):
                         r2ru = r2
                         r1 = R1
                         r2 = R2
-    print("The best resistor combo is:\n")                    
+    print("The best resistor combo is:")                    
     print("###############################################")
     print(f"R1: {R1}")
     print(f"R2: {R2}")
@@ -54,7 +54,7 @@ def calculate_resistors_in_parallel(target_resistor):
     print(f"diff resistance: {dif_resistance}")
     print("###############################################")
     print("\n")
-    print("The runner up resistor combo is:\n")                    
+    print("The runner up resistor combo is:")                    
     print("###############################################")
     print(f"R1: {r1ru}")
     print(f"R2: {r2ru}")
