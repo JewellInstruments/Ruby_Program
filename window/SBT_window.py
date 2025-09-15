@@ -24,16 +24,22 @@ def calculate_resistors_in_parallel(target_resistor):
     best_diff = 10000000
     r1 = 0
     r2 = 0
+    print("fail flag 1")
     for R1 in range(len(settings.available_resistors) + 1):
+        print("fail flag 2")
         if int(R1) >= target_resistor:
+            print("fail flag 3")
             for R2 in range(len(settings.available_resistors) + 1):
+                print("fail flag 4")
                 if int(R2) >= target_resistor:
+                    print("fail flag 5")
                     eq_resistance = 1/((1/int(R1))+(1/int(R2)))
                     dif_resistance = eq_resistance - target_resistor
                     print(f"R1: {R1}")
                     print(f"R2: {R2}")
                     print(f"diff resistance: {dif_resistance}")
                     if dif_resistance < best_diff:
+                        print("fail flag 6")
                         best_diff = dif_resistance
                         r1 = int(R1)
                         r2 = int(R2)
