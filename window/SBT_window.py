@@ -193,7 +193,7 @@ class SBT_Window(QtWidgets.QMainWindow):
             except Exception as e:
                 logging.info(f"login_window.py Error: {e}")
                 if settings.work_order == '':
-                    settings.error_message("You have not entered a work order, a work order is required for this action")
+                    settings.error_message("You have not entered a valid work order, a work order is required for this action")
                     return
                 settings.error_message("Failed to find work order, work order will not be overwritten")
         elif settings.work_order == '':
