@@ -33,12 +33,12 @@ def calculate_resistors_in_parallel(target_resistor):
     j = 0
     for i in range(len(settings.available_resistors)):
         R1 = float(settings.available_resistors[i])
-        #print(f"R1: {R1}")
+        print(f"R1: {R1}")
         i+=1
         if R1 >= target_resistor:
             for j in range(len(settings.available_resistors)):
                 R2 = float(settings.available_resistors[j])
-                #print(f"R2: {R2}")
+                print(f"R2: {R2}")
                 j +=1
                 if R2 >= target_resistor:
                     eq_resistance = 1/((1/R1)+(1/R2))
