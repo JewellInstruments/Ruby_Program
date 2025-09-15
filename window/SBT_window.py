@@ -24,33 +24,27 @@ def calculate_resistors_in_parallel(target_resistor):
     best_diff = 10000000
     r1 = 0
     r2 = 0
-    print("fail flag 1")
     i = 0
     j = 0
     for i in range(len(settings.available_resistors)):
-        print("fail flag 2")
-        R1 = int(settings.available_resistors[i])
+        R1 = float(settings.available_resistors[i])
         print(f"R1: {R1}")
         i+=1
         if R1 >= target_resistor:
-            print("fail flag 3")
             for j in range(len(settings.available_resistors)):
-                print("fail flag 4")
-                R2 = int(settings.available_resistors[j])
+                R2 = float(settings.available_resistors[j])
                 print(f"R2: {R2}")
                 j +=1
                 if R2 >= target_resistor:
-                    print("fail flag 5")
                     eq_resistance = 1/((1/int(R1))+(1/int(R2)))
                     dif_resistance = eq_resistance - target_resistor
                     print(f"R1: {R1}")
                     print(f"R2: {R2}")
                     print(f"diff resistance: {dif_resistance}")
                     if dif_resistance < best_diff:
-                        print("fail flag 6")
                         best_diff = dif_resistance
-                        r1 = int(R1)
-                        r2 = int(R2)
+                        r1 = R1
+                        r2 = R2
     return convert_resistor_to_string(r1), convert_resistor_to_string(r2)
 
 def read_data(serial_no, data):
