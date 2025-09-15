@@ -194,6 +194,9 @@ class SBT_Window(QtWidgets.QMainWindow):
                 except Exception as e:
                     logging.info(f"login_window.py Error: {e}")
                     settings.error_message("Failed to find work order, work order will not be overwritten")
+        elif settings.work_order == "":
+            settings.error_message("You have not entered a work order, a work order is required for this action")
+            return
         desc = settings.ruby_conversion_chart[settings.work_order_part_no.strip()]
         description = desc.split("-")
         if description == ['']:
