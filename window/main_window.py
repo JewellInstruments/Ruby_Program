@@ -121,9 +121,9 @@ class Main_Window(QtWidgets.QMainWindow):
 
         #disable the program digital ruby option for analog units
         if settings.work_order_part_no != '':
-            specs = get_specs.mems_specs(settings.work_order_part_no)
-            description = specs.model_no
-            #description = settings.ruby_conversion_chart[settings.work_order_part_no.strip()]
+            #specs = get_specs.mems_specs(settings.work_order_part_no)
+            #description = specs.model_no
+            description = settings.ruby_conversion_chart[settings.work_order_part_no.strip()]
             if "JDS" not in description:
                 self.program_pb.setEnabled(False)
         self.show()
