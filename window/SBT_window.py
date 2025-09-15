@@ -1,7 +1,6 @@
 import sys
 import logging
 import os
-import keyring
 import system.settings as settings
 import system.api_calls as api_calls
 from PyQt5 import QtWidgets, uic, QtGui
@@ -22,10 +21,12 @@ def convert_resistor_to_string(resistor):
         res = "DNP"
     else:
         res = str(resistor)
+    logging.info(f"Resistor {resistor} converted to {res}")
     return (res + " " + ending)
 
 def calculate_resistors_in_parallel(target_resistor):
-    #print(f"target_resistacne: {target_resistor}")
+    logging.info(f"Finding the best combo of resistors that results in {target_resistor}")
+    #print(f"target_resistance: {target_resistor}")
     best_diff = 10000000
     r1 = 0
     r2 = 0
@@ -48,6 +49,8 @@ def calculate_resistors_in_parallel(target_resistor):
                         best_eq = eq_resistance
                         r1 = R1
                         r2 = R2
+                        logging.info(f"The new best resistor combo is: R1 = {r1}, R2 = {r2}")
+                        logging.info(f"This combo results in an eq_resistance of: {best_eq}, which is {best_diff} Ohms away from the target of: {target_resistor}")
     print("The best resistor combo is:")                    
     print("###############################################")
     print(f"R1: {r1}")
@@ -67,11 +70,14 @@ def read_data(serial_no, data):
     row = filtered_data.tail(1)
     try:
         row_num = int(row.index[0])
-    except:
-        print(f"no data was found for serial number: {serial_no}, please confirm work order and serial number details are correct and the unit has been calibrated then try again")
+    except Exception as e:
+        settings.error_message(f"no data was found for serial number: {serial_no}, please confirm work order and serial number details are correct and the unit has been calibrated then try again")
+        logging.info(f"Official error message: {e}")
         return "fail", "fail", "fail", "fail"
     bias = float(data.iloc[row_num,1])
+    logging.info(f"Found bias resistor value: {bias}")
     sf = float(data.iloc[row_num,2])
+    logging.info(f"Found SF resistor value: {sf}")
     bias1, bias2 = calculate_resistors_in_parallel(bias*1000)
     sf1, sf2 = calculate_resistors_in_parallel(sf*1000)
     return bias1, bias2, sf1, sf2
@@ -86,18 +92,16 @@ def display_resistors(resistor_dict, axis):
     elif axis == 3:
         pic = "xyz_axis_sbt.png"
     image_path = os.path.join(picture_folder, pic)
-
     #do text stuff
     text = ""
-    i=0
+    i = 0
     j = 0
-    print(f"list of resistors: {resistor_dict}")
+    #print(f"list of resistors: {resistor_dict}")
     for key, value in resistor_dict.items():
         j +=1
         print(f"key: {key}, value: {value}")
         resistor = f"On {key} install a {value} resistor"
         ending = "\n"
-        
         if j == len(resistor_dict):
             ending = ""
         elif i < 3:
@@ -105,10 +109,10 @@ def display_resistors(resistor_dict, axis):
             i+=1
         else:
             i=0
-
         text = text + resistor + ending
-
     #display popup
+    logging.info(f"Text displayed to the user: {text}")
+    logging.info(f"Pic displayed to the user: {pic}")
     popup = ImagePopup(image_path, text)
     popup.exec_()
     return
@@ -195,6 +199,7 @@ class SBT_Window(QtWidgets.QMainWindow):
     def barcode_sn(self):
         """Allows the user to scan their keycard to log in if they have logged in once before
         """
+        logging.info("The serial number barcode button has been pressed")
         dialog = BarcodeEntryPopup(self)
         if dialog.exec_():
             response = dialog.barcode_value.text()
@@ -208,6 +213,7 @@ class SBT_Window(QtWidgets.QMainWindow):
     def barcode_wo(self):
         """Allows the user to scan a barcode on a production floor traveler to get the work order
         """
+        logging.info("The work order overide barcode button has been pressed")
         dialog = BarcodeEntryPopup(self)
         if dialog.exec_():
             response = dialog.barcode_value.text()
@@ -216,7 +222,7 @@ class SBT_Window(QtWidgets.QMainWindow):
             else:
                 try: 
                     response = response[1:].strip()
-                    logging.info(f"The user scanned the barcode containing: {response} as the work order info")
+                    logging.info(f"The user the barcode containing: {response} as the work order info")
                     self.work_order_le.setText(response)
                 except Exception as e:
                     print(f"an unknown error: {e} has occured") 
@@ -236,12 +242,12 @@ class SBT_Window(QtWidgets.QMainWindow):
                     old_pn = settings.work_order_part_no
                     settings.work_order, sales_order, customer, settings.work_order_part_no, settings.qty = api_calls.get_work_order(self.work_order_le.text())
                     logging.info(f"workorder: {settings.work_order} found")
+                    logging.info(f"The work order has been overridden from {old_work_order} to {settings.work_order}")
                 except Exception as e:
                     logging.info(f"login_window.py Error: {e}")
                     settings.error_message("Failed to find work order, work order will not be overwritten")
         desc = settings.ruby_conversion_chart[settings.work_order_part_no.strip()]
         description = desc.split("-")
-        #print(f"description: {description}")
         if description == ['']:
             settings.error_message("You have not selected an option")
             return 
@@ -251,9 +257,9 @@ class SBT_Window(QtWidgets.QMainWindow):
         file_name = f"RUBY {str(description[3])} {unit_range}.xlsx"
         try:
             file = os.path.join(settings.EXCEL_BASE, file_name)
+            logging.info(f"The following file: {file} has been found for the unit discription: {desc}")
         except Exception:
-            print(file_name)
-            settings.error_message("Error: Calibration data file cannot be found!")
+            settings.error_message(f"Error: Calibration data file cannot be found at '{file}'")
             return
         serial_no = str(self.serial_number_le.text())
         axis = int(description[1][0])
@@ -262,7 +268,7 @@ class SBT_Window(QtWidgets.QMainWindow):
             z_data = pandas.read_excel(file, sheet_name="Z Axis")
             R27, R28, R25, Runknown2 = read_data(serial_no, pandas.DataFrame(z_data))
             if R27 == "fail":
-                settings.error_message(f"no data was found for serial number: {serial_no}, please confirm work order and serial number details are correct and the unit has been calibrated then try again")
+                settings.error_message(f"No data was found for serial number: {serial_no}, please confirm work order and serial number details are correct and the unit has been calibrated then try again")
                 return
             resistors_dict['R27'] = R27
             resistors_dict['R28'] = R28
@@ -272,7 +278,7 @@ class SBT_Window(QtWidgets.QMainWindow):
             y_data = pandas.read_excel(file, sheet_name="Y Axis")
             R20, R21, R15, R18 = read_data(serial_no, pandas.DataFrame(y_data))
             if R20 == "fail":
-                settings.error_message(f"no data was found for serial number: {serial_no}, please confirm work order and serial number details are correct and the unit has been calibrated then try again")
+                settings.error_message(f"No data was found for serial number: {serial_no}, please confirm work order and serial number details are correct and the unit has been calibrated then try again")
                 return
             resistors_dict['R20'] = R20
             resistors_dict['R21'] = R21
@@ -294,6 +300,7 @@ class SBT_Window(QtWidgets.QMainWindow):
             if self.work_order_le.text() != '':
                 settings.work_order = old_work_order    
                 settings.work_order_part_no = old_pn
+                logging.info(f"The work order has been restored from {settings.work_order} to {old_work_order}")
         return
 
             
