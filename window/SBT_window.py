@@ -20,7 +20,7 @@ def convert_resistor_to_string(resistor):
     return (res + " " + ending)
 
 def calculate_resistors_in_parallel(target_resistor):
-    print(f"target_resistacne: {target_resistor}")
+    #print(f"target_resistacne: {target_resistor}")
     best_diff = 10000000
     r1 = 0
     r2 = 0
