@@ -44,10 +44,8 @@ def display_resistors(resistor_dict, axis):
     text = ""
     i = 0
     j = 0
-    #print(f"list of resistors: {resistor_dict}")
     for key, value in resistor_dict.items():
         j +=1
-        print(f"key: {key}, value: {value}")
         resistor = f"On {key} install a {value} resistor"
         ending = "\n"
         if j == len(resistor_dict):
@@ -111,7 +109,6 @@ class SBT_Window(QtWidgets.QMainWindow):
     def __init__(self):
         super(SBT_Window, self).__init__()
         # get the path to the ui file
-        print(settings.WINDOWS_BASE)
         logging.info(settings.WINDOWS_BASE)
         ui_file = os.path.join(settings.WINDOWS_BASE, "SBT_window.ui")
         # load the ui file
