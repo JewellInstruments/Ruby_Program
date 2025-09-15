@@ -183,18 +183,17 @@ class SBT_Window(QtWidgets.QMainWindow):
         This function checks the provided login information and if true passes the entered info to the next window
         """
         logging.info("SBT start button pushed")
-        if self.work_order_le != "":
-            if self.work_order_le.text() != '':
-                try:
-                    old_work_order = settings.work_order
-                    old_pn = settings.work_order_part_no
-                    settings.work_order, sales_order, customer, settings.work_order_part_no, settings.qty = api_calls.get_work_order(self.work_order_le.text())
-                    logging.info(f"workorder: {settings.work_order} found")
-                    logging.info(f"The work order has been overridden from {old_work_order} to {settings.work_order}")
-                except Exception as e:
-                    logging.info(f"login_window.py Error: {e}")
-                    settings.error_message("Failed to find work order, work order will not be overwritten")
-        elif settings.work_order == "":
+        if self.work_order_le.text() != '':
+            try:
+                old_work_order = settings.work_order
+                old_pn = settings.work_order_part_no
+                settings.work_order, sales_order, customer, settings.work_order_part_no, settings.qty = api_calls.get_work_order(self.work_order_le.text())
+                logging.info(f"workorder: {settings.work_order} found")
+                logging.info(f"The work order has been overridden from {old_work_order} to {settings.work_order}")
+            except Exception as e:
+                logging.info(f"login_window.py Error: {e}")
+                settings.error_message("Failed to find work order, work order will not be overwritten")
+        elif settings.work_order == '':
             settings.error_message("You have not entered a work order, a work order is required for this action")
             return
         desc = settings.ruby_conversion_chart[settings.work_order_part_no.strip()]
