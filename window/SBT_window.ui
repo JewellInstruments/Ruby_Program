@@ -158,7 +158,7 @@
      </font>
     </property>
     <property name="text">
-     <string/>
+     <string>2025W26-00001</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="work_order_le">

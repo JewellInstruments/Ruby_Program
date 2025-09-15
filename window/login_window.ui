@@ -152,7 +152,7 @@
      </font>
     </property>
     <property name="text">
-     <string/>
+     <string>cbrochu</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="password_le">
@@ -170,7 +170,7 @@
      </font>
     </property>
     <property name="text">
-     <string/>
+     <string>Home0ne01!</string>
     </property>
     <property name="echoMode">
      <enum>QLineEdit::Password</enum>
@@ -191,7 +191,7 @@
      </font>
     </property>
     <property name="text">
-     <string/>
+     <string>00HH3-0000</string>
     </property>
     <property name="echoMode">
      <enum>QLineEdit::Normal</enum>
@@ -299,7 +299,7 @@
      </font>
     </property>
     <property name="text">
-     <string/>
+     <string>08095</string>
     </property>
    </widget>
   </widget>
