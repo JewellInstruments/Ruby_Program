@@ -22,7 +22,7 @@ def parse_info(self) -> tuple [list, str]:
         work_order, sales_order, customer, settings.work_order_part_no, settings.qty = api_calls.get_work_order(self.work_order_le.text())
         part_no = settings.work_order_part_no.strip()
         logging.info(f"Aquired part number: {part_no} from work order")
-        self.part_number_le.setText(settings.work_order_part_no.strip())
+        self.part_number_le.setText(settings.work_order_part_no)
         description = str(self.description_cobo.currentText())
         logging.info(f"Aquired description number: {description} from work order")
     else:
