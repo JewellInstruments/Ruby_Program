@@ -28,12 +28,12 @@ def calculate_resistors_in_parallel(target_resistor):
         if R1 >= target_resistor:
             for R2 in range(len(settings.available_resistors) + 1):
                 if R2 >= target_resistor:
-                    eq_resistance = 1/((1/R1)+(1/R2))
+                    eq_resistance = 1/((1/int(R1))+(1/int(R2)))
                     dif_resistance = eq_resistance - target_resistor
                     if dif_resistance < best_diff:
                         best_diff = dif_resistance
-                        r1 = R1
-                        r2 = R2
+                        r1 = int(R1)
+                        r2 = int(R2)
     return convert_resistor_to_string(r1), convert_resistor_to_string(r2)
 
 def read_data(serial_no, data):
