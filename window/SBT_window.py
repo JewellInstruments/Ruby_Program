@@ -45,6 +45,7 @@ def calculate_resistors_in_parallel(target_resistor):
                     dif_resistance = abs(eq_resistance - target_resistor)
                     if dif_resistance < best_diff:
                         best_diff = dif_resistance
+                        best_eq = eq_resistance
                         r1 = R1
                         r2 = R2
     print("The best resistor combo is:")                    
@@ -52,11 +53,11 @@ def calculate_resistors_in_parallel(target_resistor):
     print(f"R1: {r1}")
     print(f"R2: {r2}")
     print(f"target resistance: {target_resistor}")
-    print(f"eq_resistance: {eq_resistance}")
+    print(f"eq_resistance: {best_eq}")
     print(f"diff resistance: {best_diff}")
     print("###############################################")
     logging.info(f"The best resistor combo is: R1 = {r1}, R2 = {r2}")
-    logging.info(f"This combo results in an eq_resistance of: {eq_resistance}, which is {best_diff} Ohms away from the target of: {target_resistor}")
+    logging.info(f"This combo results in an eq_resistance of: {best_eq}, which is {best_diff} Ohms away from the target of: {target_resistor}")
     return convert_resistor_to_string(r1), convert_resistor_to_string(r2)
 
 def read_data(serial_no, data):
