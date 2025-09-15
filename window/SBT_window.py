@@ -39,16 +39,29 @@ def calculate_resistors_in_parallel(target_resistor):
                     eq_resistance = 1/((1/R1)+(1/R2))
                     dif_resistance = abs(eq_resistance - target_resistor)
                     if dif_resistance < best_diff:
-                        print("###############################################")
-                        print(f"R1: {R1}")
-                        print(f"R2: {R2}")
-                        print(f"target resistance: {target_resistor}")
-                        print(f"eq_resistance: {eq_resistance}")
-                        print(f"diff resistance: {dif_resistance}")
-                        print("###############################################")
+                        runner_up = best_diff
                         best_diff = dif_resistance
+                        r1ru = r1
+                        r2ru = r2
                         r1 = R1
                         r2 = R2
+    print("The best resistor combo is:\n")                    
+    print("###############################################")
+    print(f"R1: {R1}")
+    print(f"R2: {R2}")
+    print(f"target resistance: {target_resistor}")
+    print(f"eq_resistance: {eq_resistance}")
+    print(f"diff resistance: {dif_resistance}")
+    print("###############################################")
+    print("\n")
+    print("The runner up resistor combo is:\n")                    
+    print("###############################################")
+    print(f"R1: {r1ru}")
+    print(f"R2: {r2ru}")
+    print(f"target resistance: {target_resistor}")
+    print(f"eq_resistance: {(1/((1/r1ru)+(1/r2ru)))}")
+    print(f"diff resistance: {runner_up}")
+    print("###############################################")
     return convert_resistor_to_string(r1), convert_resistor_to_string(r2)
 
 def read_data(serial_no, data):
