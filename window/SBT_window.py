@@ -63,8 +63,8 @@ def read_data(serial_no, data):
     except:
         print(f"no data was found for serial number: {serial_no}, please confirm work order and serial number details are correct and the unit has been calibrated then try again")
         return "fail", "fail", "fail", "fail"
-    bias = int(data.iloc[row_num,1])
-    sf = int(data.iloc[row_num,2])
+    bias = float(data.iloc[row_num,1])
+    sf = float(data.iloc[row_num,2])
     bias1, bias2 = calculate_resistors_in_parallel(bias*1000)
     sf1, sf2 = calculate_resistors_in_parallel(sf*1000)
     return bias1, bias2, sf1, sf2
