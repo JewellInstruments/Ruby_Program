@@ -2,6 +2,7 @@ import sys
 import logging
 import os
 import keyring
+from network import router_methods
 from system import settings
 from network import api_calls
 from PyQt5 import QtWidgets, uic
@@ -98,6 +99,7 @@ class Login_Window(QtWidgets.QMainWindow):
             if "@" not in user_name:
                 user_name += "@jewellinstruments.com"
         API_responce = api_calls.APIHandler(login_email=user_name, login_pass=str(self.password_le.text())).login()
+        settings.user = user_name
         if API_responce is False:
             settings.Login_fail_count += 1
             logging.info(f"{user_name} failed to log in")
@@ -110,17 +112,18 @@ class Login_Window(QtWidgets.QMainWindow):
         elif API_responce is True:
             require_work_order = False
             if self.work_order_le.text() != '':
-                found = False
+                found_work_order = False
                 require_work_order = True
                 try:
                     settings.work_order, sales_order, customer, settings.work_order_part_no, settings.qty = api_calls.get_work_order(self.work_order_le.text())
-                    found = True
+                    found_work_order = True
                     logging.info(f"workorder: {settings.work_order} found")
                 except Exception as e:
                     logging.info(f"login_window.py Error: {e}")
                     settings.error_message("Failed to find work order")
             if require_work_order is True:
-                if found is True:
+                if found_work_order is True:
+                    settings.status = router_methods.check_create_work_order_tracker()
                     settings.LOGGED_IN = True
             else:
                 settings.LOGGED_IN = True

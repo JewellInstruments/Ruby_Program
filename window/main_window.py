@@ -4,6 +4,7 @@ import os
 import datetime
 import time
 import shutil
+from network import router_methods
 from network import get_specs
 from network import api_calls
 from system import settings
@@ -53,6 +54,21 @@ def parse_info(self) -> tuple [list, str]:
         model = ''
     return desc, model
 
+class BarcodeEntryPopup(QtWidgets.QDialog):
+    def __init__(self, parent=None):
+        super(BarcodeEntryPopup, self).__init__(parent)
+        self.barcode_label = QtWidgets.QLabel(self)
+        self.barcode_label.setText("Data Matrix Value")
+        self.barcode_value = QtWidgets.QLineEdit(self)
+        self.go = QtWidgets.QPushButton("Go", self)
+        self.go.clicked.connect(self.handleLogin)
+        layout = QtWidgets.QVBoxLayout(self)
+        layout.addWidget(self.barcode_label)
+        layout.addWidget(self.barcode_value)
+        layout.addWidget(self.go)
+    def handleLogin(self):
+        self.accept()
+
 class Main_Window(QtWidgets.QMainWindow):
     def __init__(self):
         super(Main_Window, self).__init__()
@@ -65,6 +81,12 @@ class Main_Window(QtWidgets.QMainWindow):
         
         # PUSH BUTTONS
         ############################################################################
+        self.sn_status_pb = self.findChild(QtWidgets.QPushButton, "sn_status_pb")
+        self.sn_status_pb.clicked.connect(self.sn_status)
+
+        self.barcode_pb = self.findChild(QtWidgets.QPushButton, "barcode_pb")
+        self.barcode_pb.clicked.connect(self.barcode)
+
         self.first_assy_pb = self.findChild(QtWidgets.QPushButton, "first_assy_pb")
         self.first_assy_pb.clicked.connect(self.first_assy)
 
@@ -97,6 +119,7 @@ class Main_Window(QtWidgets.QMainWindow):
         ############################################################################
         self.part_number_le = self.findChild(QtWidgets.QLineEdit, "part_number_le")
         self.work_order_le = self.findChild(QtWidgets.QLineEdit, "work_order_le")
+        self.sn_le = self.findChild(QtWidgets.QLineEdit, "sn_le")
         if settings.work_order_part_no != '':
             self.work_order_le.setText(settings.work_order.strip())
             self.part_number_le.setText(settings.work_order_part_no.strip())
@@ -127,6 +150,28 @@ class Main_Window(QtWidgets.QMainWindow):
             if "JDS" not in description:
                 self.program_pb.setEnabled(False)
         self.show()
+
+    def sn_status(self):
+        sn = str(self.sn_le.text())
+        if sn == '':
+            sn = settings.work_order
+        settings.message(f"The status of serial number {sn} is {router_methods.get_sn_status(str(self.sn_le.text()))}")
+        return
+
+
+    def barcode(self):
+        """Allows the user to scan their keycard to log in if they have logged in once before
+        """
+        logging.info("The serial number barcode button has been pressed")
+        dialog = BarcodeEntryPopup(self)
+        if dialog.exec_():
+            response = dialog.barcode_value.text()
+            matrix = response.split(",")
+            desc = matrix[2]
+            logging.info(f"The user scanned the barcode containing: {response} as the user info")
+            logging.info(f"The scanned response resulted in the following discription: {desc}")
+        self.sn_le.setText(desc)
+        return
 
     def first_assy(self):
         """Opens the appropriate power point for assembling a unit of the specified model number"""
@@ -220,6 +265,7 @@ class Main_Window(QtWidgets.QMainWindow):
             if file == f"{settings.work_order}.csv":
                 print_date = time.ctime(os.path.getctime(os.path.join(settings.LABEL_BASE, f"{settings.work_order}.csv")))
                 settings.error_message(f"labels for this job have already been printed on {print_date}, please double check all information and remove original file if required:\n {settings.LABEL_BASE}")
+                router_methods.get_sn_status()
                 printed_before = True
         if printed_before is False:
             week_of_the_year = datetime.date.today().isocalendar().week
@@ -238,6 +284,7 @@ class Main_Window(QtWidgets.QMainWindow):
                     if value == model_number:
                         part_number = key
                 matrix = part_number + "," + model_number + "," + serial_number
+                router_methods.update_sn_status(sn=serial_number)
                 with open(file, "a") as write_file:
                     write_file.write(
                         f'{part_number},{model_number},{serial_number},"{matrix}",{axis_no},RoHS,ce-mark-thumbnail\n'
@@ -245,7 +292,9 @@ class Main_Window(QtWidgets.QMainWindow):
                     )
                 logging.info(f'Created label using the following info: {part_number},{model_number},{serial_number},"{matrix}",{axis_no},RoHS,ce-mark-thumbnail')
                 units += 1
-            shutil.copy(file, os.path.join(settings.PRINT_BASE, f"{settings.work_order}.csv"))
+            
+            #shutil.copy(file, os.path.join(settings.PRINT_BASE, f"{settings.work_order}.csv"))
+            router_methods.update_sn_status()
             settings.message("Print sucessfull!")
         self.create_label_pb.setEnabled(False)
         return

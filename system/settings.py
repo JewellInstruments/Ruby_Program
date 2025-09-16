@@ -13,6 +13,8 @@ work_order_part_no = ''
 work_order = ''
 qty = 0
 need_to_save_info = False
+status = ""
+user = ""
 
 #computer file variables
 HOST_NAME = socket.gethostname()
@@ -31,6 +33,7 @@ POWER_BASE = "X:\Engineering\Engineers Folders\Cameron Brochu\Ruby Info\Ruby Ass
 EXCEL_BASE = "X:\Engineering\Engineers Folders\Cameron Brochu\Ruby Info\Ruby Calibration"
 LABEL_BASE = "X:\Production\LabelDesigns\Brady_Print_Server_Repo_Channel_2\Print_Records"
 PRINT_BASE = "X:\Production\LabelDesigns\Brady_Print_Server_Repo_Channel_2"
+METHODS_BASE = "X:\Production\MEMs Sensors\_Engineering_Use_Only\Router Methods"
 API_URL = "http://192.168.3.11/api"
 M2M_API_URL = "http://192.168.3.11/m2mapi"
 
