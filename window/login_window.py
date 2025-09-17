@@ -8,10 +8,12 @@ from network import api_calls
 from PyQt5 import QtWidgets, uic
 
 def get_info_from_barcode(self) -> str:
+    response = ""
     dialog = BarcodeEntryPopup(self)
     if dialog.exec_():
         response = dialog.barcode_value.text()
-        logging.info(f"The user scanned the barcode containing: {response} as the user info")
+        if response != "":
+            logging.info(f"The user scanned the barcode containing: {response} as the user info")
     return response
 
 def store_login_info(ID, username, password):
@@ -138,16 +140,17 @@ class Login_Window(QtWidgets.QMainWindow):
         """Allows the user to scan their keycard to log in if they have logged in once before
         """
         response = get_info_from_barcode(self) #at this point response should be a string of a 5 digit number that is the employee id
-        self.ID_number_le.setText(response)
-        try: 
-            username = keyring.get_password(settings.username_table, response)
-            password = keyring.get_password(settings.password_table, username)
-            self.username_le.setText(username)
-            self.password_le.setText(password)
-        except KeyError:
-            settings.error_message(f"user id: {response} from barcode not found, please enter login info manually and next time you can use the barcode function")
-        except Exception as e:
-            settings.error_message(f"an unknown error: {e} has occured") 
+        if response != "":
+            self.ID_number_le.setText(response)
+            try: 
+                username = keyring.get_password(settings.username_table, response)
+                password = keyring.get_password(settings.password_table, username)
+                self.username_le.setText(username)
+                self.password_le.setText(password)
+            except KeyError:
+                settings.error_message(f"user id: {response} from barcode not found, please enter login info manually and next time you can use the barcode function")
+            except Exception as e:
+                settings.error_message(f"an unknown error: {e} has occured") 
         return
     
     def work_order_barcode(self):

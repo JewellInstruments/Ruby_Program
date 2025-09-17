@@ -414,7 +414,8 @@ def get_work_order(work_order: str) -> tuple[str, str, str]:
         # http://192.168.3.11/m2mapi/RMA/11410
         # http://192.168.3.11/m2mapi/ShopFloorManager/00GEM-0000
     """
-
+    if "-" not in work_order:
+        work_order = work_order + "-0000"
     api_handler = APIHandler(base_url=settings.M2M_API_URL)
 
     work_order_data = api_handler.get(f"ShopFloorManager/{work_order}")

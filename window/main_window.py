@@ -154,8 +154,9 @@ class Main_Window(QtWidgets.QMainWindow):
     def sn_status(self):
         sn = str(self.sn_le.text())
         if sn == '':
-            sn = settings.work_order
-        settings.message(f"The status of serial number {sn} is {router_methods.get_sn_status(str(self.sn_le.text()))}")
+            settings.message(router_methods.get_wo_status())
+        else:
+            settings.message(f"The status of serial number {sn} is {router_methods.get_sn_status(str(self.sn_le.text()))}")
         return
 
 
@@ -166,15 +167,17 @@ class Main_Window(QtWidgets.QMainWindow):
         dialog = BarcodeEntryPopup(self)
         if dialog.exec_():
             response = dialog.barcode_value.text()
-            matrix = response.split(",")
-            desc = matrix[2]
-            logging.info(f"The user scanned the barcode containing: {response} as the user info")
-            logging.info(f"The scanned response resulted in the following discription: {desc}")
-        self.sn_le.setText(desc)
+            if response != "":
+                matrix = response.split(",")
+                desc = matrix[2]
+                logging.info(f"The user scanned the barcode containing: {response} as the user info")
+                logging.info(f"The scanned response resulted in the following discription: {desc}")
+                self.sn_le.setText(desc)
         return
 
     def first_assy(self):
         """Opens the appropriate power point for assembling a unit of the specified model number"""
+        settings.last_pushed = "First Assembly"
         #specs = get_specs.mems_specs(self.part_number_le)
         desc, model_number = parse_info(self) #JMHI-200-1-L-30
         if desc == ['']:
@@ -202,6 +205,7 @@ class Main_Window(QtWidgets.QMainWindow):
         file_name = f"{axis_no}-axis {range}{output} RUBY Assembly.pptx"
         try:
             file_path = os.path.join(settings.POWER_BASE, folder_name)
+            #router_methods.update_status()
             os.startfile(os.path.join(file_path, file_name))
         except Exception:
             settings.error_message("Cam has not created a power point for this unit, tell him to do it")
@@ -209,6 +213,7 @@ class Main_Window(QtWidgets.QMainWindow):
     
     def cover_assy(self):
         """Opens the appropriate power point for assembling the cover for a unit of the specified model number"""
+        settings.last_pushed = "Cover Assembly"
         desc, model_number = parse_info(self) #JMHI-200-1-L-30
         print(f"desc: {desc}")
         if desc == ['']:
@@ -229,6 +234,7 @@ class Main_Window(QtWidgets.QMainWindow):
     
     def calibration(self):
         """Opens the appropriate excel sheet for calibrating a unit of the specified model number"""
+        settings.last_pushed = "Calibration"
         desc, model_number = parse_info(self) #JMHI-200-1-L-30
         if desc == ['']:
             settings.error_message("You have not selected an option")
@@ -247,6 +253,7 @@ class Main_Window(QtWidgets.QMainWindow):
     
     def create_label(self):
         """Creates a label for the specified work order"""
+        settings.last_pushed = "Print Label"
         if self.work_order_le == '':
             settings.error_message("A work order must have been selected to print labels")
             return
@@ -301,6 +308,7 @@ class Main_Window(QtWidgets.QMainWindow):
     
     def install_SBT(self):
         """Launch the install_SBT window."""
+        settings.last_pushed = "Install SBT"
         print("you clicked the install_SBT button")
         logging.info("opening the install_SBT_window")
         self.install_SBT_app = SBT_window.SBT_Window()
@@ -309,6 +317,7 @@ class Main_Window(QtWidgets.QMainWindow):
     
     def final_assy(self):
         """Opens a power point that containins the instructions for assembling the ruby cover to base"""
+        settings.last_pushed = "Final Assembly"
         file_name = "RUBY Final Assembly.pptx"
         try:
             os.startfile(os.path.join(settings.POWER_BASE, file_name))
@@ -319,6 +328,8 @@ class Main_Window(QtWidgets.QMainWindow):
     
     def program(self):
         """Opens a power point that containins the instructions for programing the digital ruby"""
+        settings.last_pushed = "Program"
+
         file_name = "Digital RUBY Programing.pptx"
         try:
             os.startfile(os.path.join(settings.POWER_BASE, file_name))

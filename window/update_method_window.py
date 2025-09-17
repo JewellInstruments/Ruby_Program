@@ -119,12 +119,9 @@ class SBT_Window(QtWidgets.QMainWindow):
         ############################################################################
         self.sn_barcode_sn_pb = self.findChild(QtWidgets.QPushButton, "sn_barcode_pb")
         self.sn_barcode_sn_pb.clicked.connect(self.barcode_sn)
-
-        self.sn_barcode_wo_pb = self.findChild(QtWidgets.QPushButton, "wo_barcode_pb")
-        self.sn_barcode_wo_pb.clicked.connect(self.barcode_wo)
         
-        self.start_pb = self.findChild(QtWidgets.QPushButton, "start_pb")
-        self.start_pb.clicked.connect(self.start)
+        self.update_pb = self.findChild(QtWidgets.QPushButton, "update_pb")
+        self.update_pb.clicked.connect(self.update_sn)
 
         self.help_pb = self.findChild(QtWidgets.QPushButton, "help_pb")
         self.help_pb.clicked.connect(self.help)
@@ -132,12 +129,18 @@ class SBT_Window(QtWidgets.QMainWindow):
         self.exit_pb = self.findChild(QtWidgets.QPushButton, "exit_pb")
         self.exit_pb.clicked.connect(self.exit)
         ############################################################################
+
+        #COMBO BOXES:
+        ############################################################################
+        self.status_cobo = self.findChild(QtWidgets.QComboBox, "status_cobo")
+        ############################################################################
         
         # LINE EDITS:
         ############################################################################
         self.serial_number_le = self.findChild(QtWidgets.QLineEdit, "serial_number_le")
-        self.work_order_le = self.findChild(QtWidgets.QLineEdit, "work_order_le")
         ############################################################################
+
+        self.status_cobo.setCurrentText(settings.last_pushed)
         self.show()
 
 
@@ -157,103 +160,17 @@ class SBT_Window(QtWidgets.QMainWindow):
                 self.serial_number_le.setText(desc)
         return
     
-    def barcode_wo(self):
-        """Allows the user to scan a barcode on a production floor traveler to get the work order
-        """
-        logging.info("The work order overide barcode button has been pressed")
-        dialog = BarcodeEntryPopup(self)
-        if dialog.exec_():
-            response = dialog.barcode_value.text()
-            if response == "":
-                return
-            else:
-                try: 
-                    response = response[1:].strip()
-                    logging.info(f"The user the barcode containing: {response} as the work order info")
-                    self.work_order_le.setText(response)
-                except Exception as e:
-                    print(f"an unknown error: {e} has occured") 
-                    logging.info(f"an unknown error: {e} has occured")
-        return
-    
+  
 
-    def start(self):
-        """_summary_
-        This function checks the provided login information and if true passes the entered info to the next window
-        """
-        logging.info("SBT start button pushed")
-        if self.work_order_le.text() != '':
-            try:
-                old_work_order = settings.work_order
-                old_pn = settings.work_order_part_no
-                settings.work_order, sales_order, customer, settings.work_order_part_no, settings.qty = api_calls.get_work_order(self.work_order_le.text())
-                logging.info(f"workorder: {settings.work_order} found")
-                logging.info(f"The work order has been overridden from {old_work_order} to {settings.work_order}")
-            except Exception as e:
-                logging.info(f"login_window.py Error: {e}")
-                if settings.work_order == '':
-                    settings.error_message("You have not entered a valid work order, a work order is required for this action")
-                    return
-                settings.error_message("Failed to find work order, work order will not be overwritten")
-        elif settings.work_order == '':
-            settings.error_message("You have not entered a work order, a work order is required for this action")
-            return
-        desc = settings.ruby_conversion_chart[settings.work_order_part_no]
-        description = desc.split("-")
-        if description == ['']:
-            settings.error_message("You have not selected an option")
-            return 
-        unit_range = str(description[4])
-        if str(description[0]) == 'JMHA':
-            unit_range = f"{unit_range}g"
-        file_name = f"RUBY {str(description[3])} {unit_range}.xlsx"
-        try:
-            file = os.path.join(settings.EXCEL_BASE, file_name)
-            logging.info(f"The following file: {file} has been found for the unit discription: {desc}")
-        except Exception:
-            settings.error_message(f"Error: Calibration data file cannot be found at '{file}'")
-            return
-        serial_no = str(self.serial_number_le.text())
-        axis = int(description[1][0])
-        resistors_dict = {}
-        if axis == 3:
-            z_data = pandas.read_excel(file, sheet_name="Z Axis")
-            R27, R28, R25, Runknown2 = read_data(serial_no, pandas.DataFrame(z_data))
-            if R27 == "fail":
-                settings.error_message(f"No data was found for serial number: {serial_no}, please confirm work order and serial number details are correct and the unit has been calibrated then try again")
-                return
-            resistors_dict['R27'] = R27
-            resistors_dict['R28'] = R28
-            resistors_dict['R25'] = R25
-            resistors_dict['Runknown2'] = Runknown2
-        if axis >= 2:
-            y_data = pandas.read_excel(file, sheet_name="Y Axis")
-            R20, R21, R15, R18 = read_data(serial_no, pandas.DataFrame(y_data))
-            if R20 == "fail":
-                settings.error_message(f"No data was found for serial number: {serial_no}, please confirm work order and serial number details are correct and the unit has been calibrated then try again")
-                return
-            resistors_dict['R20'] = R20
-            resistors_dict['R21'] = R21
-            resistors_dict['R15'] = R15
-            resistors_dict['R18'] = R18
-        if axis >= 1: 
-            x_data = pandas.read_excel(file, sheet_name="X Axis")
-            R13, R14, R8, R11 = read_data(serial_no, pandas.DataFrame(x_data))
-            if R13 == "fail":
-                settings.error_message(f"no data was found for serial number: {serial_no}, please confirm work order and serial number details are correct and the unit has been calibrated then try again")
-                return
-            resistors_dict['R13'] = R13
-            resistors_dict['R14'] = R14
-            resistors_dict['R8'] = R8
-            resistors_dict['R11'] = R11
-        
-        display_resistors(resistors_dict, axis)
-        router_methods.update_sn_status(sn=serial_no, status="Final Assembly")
-        if self.work_order_le != "":
-            if self.work_order_le.text() != '':
-                settings.work_order = old_work_order    
-                settings.work_order_part_no = old_pn
-                logging.info(f"The work order has been restored from {settings.work_order} to {old_work_order}")
+    def update_sn(self):
+        logging.info("update_sn button pushed")
+        sn = self.serial_number_le.text()
+        if self.status_cobo.text() != "":
+            status = settings.analog_method_order[self.status_cobo.text()]
+        else:
+            status = settings.analog_method_order[settings.last_pushed]
+        router_methods.update_sn_status(sn, status)
+        settings.message(f"the status of {sn} has sucessfull been updated to ready for {status}")
         return
 
             

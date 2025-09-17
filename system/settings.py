@@ -15,6 +15,7 @@ qty = 0
 need_to_save_info = False
 status = ""
 user = ""
+last_pushed = ""
 
 #computer file variables
 HOST_NAME = socket.gethostname()
@@ -231,7 +232,7 @@ ruby_conversion_chart = {
     "02550433-2124" : "JMHI-200-1-D-14.5",
     "02550433-2126" : "JMHI-200-1-D-30",
     "02550433-2128" : "JMHI-200-1-D-60",
-    "02550433-2129" : "JMHI-200-1-D-90.0",
+    "02550433-2129" : "JMHI-200-1-D-90",
     "02550433-2132" : "JMHI-200-1-L-1",
     "02550433-2133" : "JMHI-200-1-L-3",
     "02550433-2134" : "JMHI-200-1-L-14.5",
@@ -249,7 +250,7 @@ ruby_conversion_chart = {
     "02550433-2424" : "JMHI-200-4-D-14.5",
     "02550433-2426" : "JMHI-200-4-D-30",
     "02550433-2428" : "JMHI-200-4-D-60",
-    "02550433-2429" : "JMHI-200-4-D-90.0",
+    "02550433-2429" : "JMHI-200-4-D-90",
     "02550433-2432" : "JMHI-200-4-L-1",
     "02550433-2433" : "JMHI-200-4-L-3",
     "02550433-2434" : "JMHI-200-4-L-14.5",
@@ -263,7 +264,7 @@ ruby_conversion_chart = {
     "02550444-2424" : "JMHI-200-4-D-14.5-V",
     "02550444-2426" : "JMHI-200-4-D-30-V",
     "02550444-2428" : "JMHI-200-4-D-60-V",
-    "02550444-2429" : "JMHI-200-4-D-90.0-V",
+    "02550444-2429" : "JMHI-200-4-D-90-V",
     "02550444-2434" : "JMHI-200-4-L-14.5-V",
     "02550444-2436" : "JMHI-200-4-L-30-V",
     "02550444-2438" : "JMHI-200-4-L-60-V",
@@ -296,6 +297,17 @@ available_resistors = [
     "909000","931000","953000","976000","1000000","1500000","2000000","2490000","3010000","4020000","4990000","5900000","6810000","7500000","8250000","9090000","10000000","15000000","20000000",
     "999999999999999999999999999999999"
 ]
+
+analog_method_order = {
+    "completed_stap":"next_step",
+    "":"Print Labels",
+    "Print Labels":"First Assembly",
+    "First Assembly":"Calibration",
+    "Calibration":"Cover Assembly",
+    "Cover Assembly":"Install SBT",
+    "Install SBT":"Final Assembly",
+    "Final Assembly":"Final ATP"
+}
 
 username_table = 'usernames'
 
